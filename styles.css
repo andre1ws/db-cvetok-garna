@@ -52,6 +52,8 @@
   --r-chip: 12px;
   --r-pill: 999px;
 
+  --control-h: 38px;   /* every bordered toolbar control shares this height */
+
   /* only the accent glow survives: surfaces separate by tone and border, not shadow */
   --shadow-accent: 0 8px 24px -6px var(--accent-glow);
 }
@@ -373,25 +375,25 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 6px 8px 14px;
+  padding: 10px 8px 16px;
   flex: none;
 }
 
-.crumbs { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.crumbs { display: flex; align-items: center; gap: 10px; font-size: 15px; }
 .crumbs a { color: var(--muted); text-decoration: none; }
 .crumbs a:hover { color: var(--accent-ink); }
 .crumbs .sep { color: var(--muted-2); }
-.crumbs .current { color: var(--ink); font-weight: 700; }
+.crumbs .current { color: var(--ink); font-size: 23px; font-weight: 800; letter-spacing: -.6px; }
 
 .crumb-add {
   display: grid;
   place-items: center;
   flex: none;
-  width: 22px;
-  height: 22px;
+  width: 27px;
+  height: 27px;
   padding: 0;
   margin: 0;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   background: var(--surface);
   color: var(--ink-2);
@@ -408,7 +410,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 12px;
+  height: var(--control-h);
+  padding: 0 14px;
   border: 1px solid transparent;
   border-radius: var(--r-pill);
   background: none;
@@ -416,6 +419,7 @@ body {
   font: inherit;
   font-size: 12px;
   font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -489,8 +493,9 @@ body {
   align-items: center;
   gap: 8px;
   width: 190px;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
+  height: var(--control-h);
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   background: var(--surface);
   color: var(--muted);
@@ -511,7 +516,7 @@ body {
 .search input::placeholder { color: var(--muted); }
 .search input::-webkit-search-cancel-button { display: none; }
 
-.filter-btn { border-color: var(--line); }
+.filter-btn { border-color: var(--line-strong); }
 .filter-btn:hover { background: var(--chip); }
 
 .primary-btn {
@@ -598,11 +603,11 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 .toolbar-left { display: flex; align-items: center; gap: 9px; }
 .toolbar-plain .toolbar-right { padding-bottom: 0; }
 
-.search-wide { width: 272px; padding: 9px 13px; border-radius: var(--r-pill); }
+.search-wide { width: 272px; padding: 0 16px; }
 
 .icon-btn.is-bordered {
-  width: 34px;
-  height: 34px;
+  width: var(--control-h);
+  height: var(--control-h);
   border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   color: var(--muted);
@@ -621,9 +626,9 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 .preset-chip {
   display: inline-flex;
   align-items: center;
-  height: 34px;
+  height: var(--control-h);
   padding: 0 14px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   background: var(--surface);
   color: var(--ink-2);
@@ -641,7 +646,7 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
   color: var(--accent-ink);
 }
 
-.kyc-btn { gap: 8px; font-weight: 600; border-color: var(--line); }
+.kyc-btn { gap: 8px; font-weight: 600; border-color: var(--line-strong); }
 .kyc-btn:hover { background: var(--chip); }
 .kyc-btn svg { color: var(--ink-2); }
 
@@ -1244,7 +1249,7 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
 /* ---------- Promotions ---------- */
 
 .promotions-toolbar { margin-bottom: 8px; }
-.archive-btn { margin-left: auto; border: 1px solid var(--line); }
+.archive-btn { margin-left: auto; border: 1px solid var(--line-strong); }
 
 table.promotions-table { min-width: 840px; }
 
