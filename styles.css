@@ -7,7 +7,7 @@
   --surface: #ffffff;      /* cards, drawers, sidebar */
   --surface-2: #f7f8f9;    /* filled panels INSIDE a card (profile blocks, form groups) */
   --sidebar: #ffffff;
-  --inset: #f7f8f9;        /* alias of surface-2, kept for form fields */
+  --inset: #eceef1;        /* field fill -- MUST stay distinct from --surface-2 */
 
   --line: #e4e6ea;
   --line-soft: #eff0f3;
@@ -67,7 +67,7 @@ html[data-theme="dark"] {
   --surface: #15171a;
   --surface-2: #1b1d21;
   --sidebar: #15171a;
-  --inset: #1b1d21;
+  --inset: #232629;        /* field fill -- distinct from --surface-2 */
 
   --line: #282b31;
   --line-soft: #1f2126;
@@ -683,7 +683,7 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
   padding: 16px;
   border: 1px solid var(--line);
   border-radius: var(--r-card);
-  background: var(--surface-2);
+  background: var(--surface);
 }
 
 .filter-row {
@@ -740,7 +740,7 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
   flex-wrap: wrap;
   min-height: 40px;
   padding: 8px 10px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-inner);
   background: var(--surface);
 }
@@ -804,7 +804,15 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 
 .filter-preset-input { width: 200px; }
 
-.filter-panel button[disabled] { opacity: .45; cursor: not-allowed; pointer-events: none; }
+.filter-panel button[disabled] {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--muted-2);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.filter-panel button[disabled] svg { color: var(--muted-2); }
 
 .data-table-wrap {
   border: 1px solid var(--line-soft);
@@ -1420,7 +1428,7 @@ table.notifications-table { min-width: 900px; }
   width: 100%;
   min-width: 0;
   padding: 10px 12px;
-  border: 1px solid transparent;
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   outline: 0;
   background: var(--inset);
