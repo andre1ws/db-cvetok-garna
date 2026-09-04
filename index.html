@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — Users</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=18" />
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark brand-mark-chart">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 19V11M10.5 19V7M16 19v-5M21.5 19V5"/>
+        </svg>
+      </span>
+      <span class="brand-name">Dashboard</span>
+    </div>
+
+    <nav class="nav">
+      <p class="nav-label">Sections</p>
+
+      <div class="nav-group is-open" data-group>
+        <button class="nav-item nav-parent is-active" data-group-toggle type="button">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5a6 6 0 0 1 12 0"/><path d="M16.5 5.9a3.2 3.2 0 0 1 0 5.2M18.5 19.5a6 6 0 0 0-2.2-4.6"/></svg>
+          <span>Administrator</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <div class="nav-group-body">
+          <a class="nav-item nav-sub" href="#" data-view="users">
+            <span>Users</span>
+          </a>
+          <a class="nav-item nav-sub" href="#" data-view="promotions">
+            <span>Promotions</span>
+          </a>
+          <a class="nav-item nav-sub" href="#" data-view="notifications">
+            <span>Notifications</span>
+          </a>
+        </div>
+      </div>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5h8.5A1.5 1.5 0 0 1 18 6v14l-4.2-2.2L9.5 20V6A1.5 1.5 0 0 1 11 4.5"/><path d="M8 8.5h6.5M8 12h6.5M8 15.5h4"/></svg>
+        <span>Departments</span>
+      </a>
+
+      <div class="nav-group" data-group>
+        <button class="nav-item nav-parent" data-group-toggle type="button">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M14.5 9.2c-.5-.8-1.4-1.2-2.5-1.2-1.6 0-2.7 1-2.7 2.3s1.1 2.1 2.9 2.5c1.7.4 2.8 1.1 2.8 2.5s-1.2 2.4-3 2.4c-1.2 0-2.2-.5-2.7-1.3"/></svg>
+          <span>Payments</span>
+          <span class="nav-dot" aria-hidden="true"></span>
+          <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <div class="nav-group-body">
+          <a class="nav-item nav-sub" href="#" data-view="transactions">
+            <span>Transactions CY</span>
+            <span class="badge">37</span>
+          </a>
+          <a class="nav-item nav-sub" href="#">
+            <span>Transactions CA</span>
+          </a>
+          <a class="nav-item nav-sub" href="#">
+            <span>Transactions CIS</span>
+            <span class="badge">68</span>
+          </a>
+          <a class="nav-item nav-sub" href="#">
+            <span>Transactions HK</span>
+            <span class="badge">1</span>
+          </a>
+          <a class="nav-item nav-sub" href="#">
+            <span>Payment methods</span>
+          </a>
+          <a class="nav-item nav-sub" href="#">
+            <span>Regions</span>
+          </a>
+        </div>
+      </div>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 12.5c-2-.8-3.5-2.4-3.5-4.5A3.5 3.5 0 0 1 12 5.2 3.5 3.5 0 0 1 19 8c0 2.1-1.5 3.7-3.5 4.5"/><path d="M7 15.5c1.8 1.4 3.7 2.2 5 2.2s3.2-.8 5-2.2"/><path d="M9.5 19.5h5"/></svg>
+        <span>CSP</span>
+        <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5V8.2L12 4.5l7.5 3.7v11.3"/><path d="M9 19.5v-5h6v5"/><circle cx="17.5" cy="16" r="2.2"/><circle cx="17.5" cy="16" r="0.7"/></svg>
+        <span>Payment accounts</span>
+        <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3.5"/><path d="M15.5 15.2v2.6M14.2 16.5h2.6"/></svg>
+        <span>Contracts</span>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="m10 9.5 5 2.5-5 2.5v-5Z"/></svg>
+        <span>Requests</span>
+        <span class="nav-dot" aria-hidden="true"></span>
+        <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M7 15.5 10.5 11l3 3 3.5-5"/></svg>
+        <span>Analytics</span>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 16V11M12 16V8M16 16v-3"/></svg>
+        <span>Funds</span>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 14 8l4.8.7-3.5 3.4.9 4.9L12 14.8 7.8 17l.9-4.9L5.2 8.7 10 8l2-4.5Z"/></svg>
+        <span>Perks and Benefits</span>
+        <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="11.5" rx="2"/><path d="M9.5 19.5h5M12 16v3.5"/><path d="M8 14.5h8"/></svg>
+        <span>Assets</span>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 10.5V8.2A2.7 2.7 0 0 1 7.2 5.5h2.1l1.5-2h2.4l1.5 2h2.1a2.7 2.7 0 0 1 2.7 2.7v2.3"/><circle cx="12" cy="14.5" r="4"/><path d="M12 12.8v3.4M10.3 14.5h3.4"/></svg>
+        <span>Channels</span>
+      </a>
+
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 15.5c-2.5 0-4.5-1.8-4.5-4S6 7.5 8.5 7.5h.4"/><path d="M15.5 8.5c2.5 0 4.5 1.8 4.5 4s-2 4-4.5 4H15l-2.2 2v-2"/><path d="M8.8 11.2h.01M12 11.2h.01M15.2 11.2h.01"/></svg>
+        <span>Knowledge base</span>
+        <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+
+      <div class="support-card nav-support">
+        <div class="theme-switch" role="tablist" aria-label="Theme">
+          <button class="theme-opt" data-theme="dark" role="tab">Dark</button>
+          <button class="theme-opt is-active" data-theme="light" role="tab" aria-selected="true">Light</button>
+          <button class="theme-opt" data-theme="system" role="tab">System</button>
+        </div>
+        <a class="nav-item nav-signout" href="#">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5H18A1.5 1.5 0 0 1 19.5 6v12A1.5 1.5 0 0 1 18 19.5h-3.5"/><path d="M10.5 15.5 6.5 12l4-3.5M6.5 12h8"/></svg>
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="user">
+        <span class="avatar avatar-md av-brown">CM</span>
+        <span class="user-meta">
+          <strong>Charles Morgan</strong>
+          <em>charles@techno.co</em>
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="panel">
+    <header class="topbar">
+      <nav class="crumbs" id="crumbs" aria-label="Breadcrumb">
+        <a href="#">My Pages</a>
+        <span class="sep">/</span>
+        <span class="current">Tasks</span>
+      </nav>
+      <div class="topbar-actions">
+        <button class="lang-btn" id="langBtn">
+          <span>EN</span>
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="panel-body">
+      <section class="view" data-view="users">
+
+        <div class="toolbar toolbar-plain">
+          <div class="toolbar-left">
+            <label class="search search-wide">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              <input id="userSearch" type="search" placeholder="Username, channel or email" />
+            </label>
+            <button class="icon-btn is-bordered" id="userFilterToggle" title="Filter" aria-label="Filter" aria-expanded="false">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+            </button>
+            <div class="preset-chips" id="userFilterPresets"></div>
+          </div>
+
+          <div class="toolbar-right">
+            <button class="ghost-btn kyc-btn" id="kycFilter" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19a6 6 0 0 1 11 0"/><path d="m15.5 12.8 2 2 3.5-3.6"/></svg>
+              <span>Checking KYC</span>
+              <span class="count-badge" id="kycCount">0</span>
+            </button>
+            <button class="icon-btn is-bordered" title="Export CSV" aria-label="Export CSV">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><path d="M12 11.5v5M9.8 14.3 12 16.5l2.2-2.2"/></svg>
+            </button>
+            <button class="icon-btn is-bordered" title="Audit log" aria-label="Audit log">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><circle cx="11.8" cy="14" r="2.4"/><path d="m13.6 15.8 1.8 1.8"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-panel" id="userFilterPanel" hidden></div>
+
+        <div class="data-table-wrap" id="usersTable"></div>
+        <p class="empty-note" id="usersEmpty" hidden>No users match your search.</p>
+      </section>
+
+      <section class="view promotions-view" data-view="promotions" hidden>
+        <div class="toolbar toolbar-plain promotions-toolbar">
+          <div class="toolbar-left">
+            <label class="search search-wide">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              <input id="promotionSearch" type="search" placeholder="Banner name" />
+            </label>
+            <button class="icon-btn is-bordered" title="Filter" aria-label="Filter promotions">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+            </button>
+          </div>
+          <button class="ghost-btn archive-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M3 4h18v4H3zM9 12h6"/></svg>
+            <span>Archive</span>
+          </button>
+        </div>
+
+        <div class="data-table-wrap" id="promotionsTable"></div>
+        <p class="empty-note" id="promotionsEmpty" hidden>No promotions match your search.</p>
+      </section>
+
+      <section class="view" data-view="notifications" hidden>
+        <div class="toolbar toolbar-plain">
+          <div class="toolbar-left">
+            <label class="search search-wide">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              <input id="notificationSearch" type="search" placeholder="Username or email" />
+            </label>
+            <button class="icon-btn is-bordered" title="Filter" aria-label="Filter notifications">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+            </button>
+          </div>
+          <button class="ghost-btn archive-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M3 4h18v4H3zM9 12h6"/></svg>
+            <span>Archive</span>
+          </button>
+        </div>
+
+        <div class="data-table-wrap" id="notificationsTable"></div>
+        <p class="empty-note" id="notificationsEmpty" hidden>No notifications match your search.</p>
+      </section>
+
+      <section class="view" data-view="transactions" hidden>
+        <div class="toolbar toolbar-plain">
+          <div class="toolbar-left">
+            <label class="search search-wide">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              <input id="transactionSearch" type="search" placeholder="Username / Email / Account Number" />
+            </label>
+            <button class="icon-btn is-bordered" title="Filter" aria-label="Filter transactions">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+            </button>
+          </div>
+
+          <div class="toolbar-right">
+            <button class="ghost-btn kyc-btn" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5M9 5h10v10"/></svg>
+              <span>Quick Transfer</span>
+              <span class="count-badge">0</span>
+            </button>
+            <button class="ghost-btn kyc-btn" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4.4M12 15.8h.01"/></svg>
+              <span>Require clarification</span>
+              <span class="count-badge">1</span>
+            </button>
+            <button class="ghost-btn kyc-btn" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><path d="M12 11.5v5M9.8 14.3 12 16.5l2.2-2.2"/></svg>
+              <span>New</span>
+              <span class="count-badge">37</span>
+            </button>
+            <button class="icon-btn is-bordered" title="Export" aria-label="Export transactions">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="data-table-wrap" id="transactionsTable"></div>
+        <p class="empty-note" id="transactionsEmpty" hidden>No transactions match your search.</p>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div class="profile-modal" id="profileModal" hidden>
+  <button class="profile-backdrop" type="button" aria-label="Close profile" data-close-profile></button>
+  <aside class="profile-drawer" id="profileCard" role="dialog" aria-modal="true"></aside>
+</div>
+
+<div class="promotion-modal" id="promotionModal" hidden>
+  <button class="promotion-backdrop" type="button" aria-label="Close promotion editor" data-close-promotion></button>
+  <aside class="promotion-drawer" role="dialog" aria-modal="true" aria-labelledby="promotionModalTitle">
+    <header class="drawer-head">
+      <h2 id="promotionModalTitle">Create a promotion</h2>
+      <button class="icon-btn drawer-close" type="button" aria-label="Close" data-close-promotion>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+
+    <form class="promotion-form" id="promotionForm">
+      <div class="drawer-scroll">
+        <section class="form-block">
+          <h3 class="form-block-title">Add segment by users</h3>
+          <div class="field-with-action">
+            <input name="users" class="field-control" placeholder="Usernames or email addresses" />
+            <button class="icon-btn is-bordered" type="button" title="Import segment" aria-label="Import segment">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><path d="M12 11.5v5M9.8 14.3 12 16.5l2.2-2.2"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="form-block">
+          <h3 class="form-block-title">Add segment label and CSP</h3>
+          <div class="form-grid form-grid-3">
+            <label class="form-field">
+              <span>Label</span>
+              <select name="label" class="field-control">
+                <option value="">Select labels</option>
+                <option>Users</option>
+                <option>CSP</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span>CSP</span>
+              <select name="csp" class="field-control">
+                <option value="">Select a CSP</option>
+                <option>Garna</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span>Exclude CSP</span>
+              <select name="excludeCsp" class="field-control">
+                <option value="">Select a CSP</option>
+                <option>Garna</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-block">
+          <h3 class="form-block-title">Narrow segment by country</h3>
+          <div class="field-with-action">
+            <input name="countries" class="field-control" placeholder="Users from selected countries in the segment" />
+            <button class="icon-btn is-bordered" type="button" title="Import countries" aria-label="Import countries">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><path d="M12 11.5v5M9.8 14.3 12 16.5l2.2-2.2"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="form-block">
+          <div class="form-grid">
+            <label class="form-field">
+              <span>Serial number of the promotion</span>
+              <input name="serial" class="field-control" type="number" value="1" min="1" />
+            </label>
+            <label class="form-field">
+              <span>Platforms</span>
+              <select name="platform" class="field-control">
+                <option value="">Where the promotion appears</option>
+                <option>Web</option>
+                <option>App</option>
+                <option>Web and app</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span>Button leads to</span>
+              <select name="destination" class="field-control">
+                <option>Balance</option>
+                <option>Offers</option>
+                <option>Channels</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span>End date (optional)</span>
+              <input name="endDate" class="field-control" type="date" />
+            </label>
+          </div>
+          <p class="form-hint">File with examples of segments and transitions (select the desired sheet)</p>
+          <label class="switch-row">
+            <input name="reminder" type="checkbox" />
+            <span class="switch-control"></span>
+            <span>Add a reminder</span>
+          </label>
+        </section>
+
+        <section class="form-block">
+          <div class="language-tabs" role="tablist">
+            <button type="button" class="language-tab is-active">EN</button>
+            <button type="button" class="language-tab">RU</button>
+            <button type="button" class="language-tab">ES</button>
+            <button type="button" class="language-tab">PT</button>
+            <button type="button" class="language-tab">TH</button>
+            <button type="button" class="language-tab">AR</button>
+            <button type="button" class="language-tab">VI</button>
+          </div>
+
+          <label class="form-field">
+            <span>Promotion title</span>
+            <input name="title" class="field-control" maxlength="95" placeholder="Recommended length is up to 95 characters" />
+          </label>
+
+          <label class="form-field">
+            <span>Promotion text</span>
+            <textarea name="text" class="field-control" rows="5" placeholder="Promotion text in the modal window"></textarea>
+          </label>
+
+          <label class="form-field">
+            <span>Text on a button in the modal window</span>
+            <input name="buttonText" class="field-control" maxlength="25" placeholder="Recommended length is up to 25 characters" />
+          </label>
+        </section>
+
+        <section class="form-block">
+          <label class="upload-card">
+            <input type="file" accept="image/*" hidden />
+            <div class="upload-copy">
+              <strong>Banner for web version</strong>
+              <small>720 × 600 px · JPG, PNG · up to 10 MB · max 1 photo</small>
+            </div>
+            <span class="upload-button">Add Files</span>
+          </label>
+          <label class="upload-card">
+            <input type="file" accept="image/*" hidden />
+            <div class="upload-copy">
+              <strong>Banner for app</strong>
+              <small>1372 × 440 px · JPG, PNG · up to 10 MB · max 1 photo</small>
+            </div>
+            <span class="upload-button">Add Files</span>
+          </label>
+          <label class="upload-card">
+            <input type="file" accept="image/*" hidden />
+            <div class="upload-copy">
+              <strong>Image for modal window</strong>
+              <small>1744 × 800 px · JPG, PNG · up to 10 MB · max 1 photo</small>
+            </div>
+            <span class="upload-button">Add Files</span>
+          </label>
+        </section>
+      </div>
+
+      <footer class="drawer-footer">
+        <button class="filter-btn" type="button" data-close-promotion>Cancel</button>
+        <button class="ghost-btn" type="button">Save draft</button>
+        <button class="primary-btn" type="submit">Publish</button>
+      </footer>
+    </form>
+  </aside>
+</div>
+
+<div class="promotion-modal" id="notificationModal" hidden>
+  <button class="promotion-backdrop" type="button" aria-label="Close notification editor" data-close-notification></button>
+  <aside class="promotion-drawer" role="dialog" aria-modal="true" aria-labelledby="notificationModalTitle">
+    <header class="drawer-head">
+      <h2 id="notificationModalTitle">Create a notification or article</h2>
+      <button class="icon-btn drawer-close" type="button" aria-label="Close" data-close-notification>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+
+    <form class="promotion-form" id="notificationForm">
+      <div class="drawer-scroll">
+        <section class="form-block">
+          <h3 class="form-block-title">Add segment by users</h3>
+          <div class="field-with-action">
+            <input name="segmentUsers" class="field-control" placeholder="Usernames or email addresses" />
+            <button class="icon-btn is-bordered" type="button" title="Import segment" aria-label="Import segment">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><path d="M12 11.5v5M9.8 14.3 12 16.5l2.2-2.2"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="form-block">
+          <h3 class="form-block-title">Add segment label and CSP</h3>
+          <label class="form-field">
+            <span>Label</span>
+            <select name="label" class="field-control">
+              <option value="">Select labels</option>
+              <option>Users</option>
+              <option>CSP</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>CSP</span>
+            <select name="csp" class="field-control">
+              <option value="">Select a CSP</option>
+              <option>Garna</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Exclude CSP</span>
+            <select name="excludeCsp" class="field-control">
+              <option value="">Select a CSP</option>
+              <option>Garna</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="form-block">
+          <h3 class="form-block-title">Narrow segment by country</h3>
+          <div class="field-with-action">
+            <input name="countries" class="field-control" placeholder="Users from selected countries in the segment will see the content" />
+            <button class="icon-btn is-bordered" type="button" title="Import countries" aria-label="Import countries">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A2 2 0 0 0 5.5 5.5v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8.5L14 3.5Z"/><path d="M13.8 3.6v5h4.6"/><path d="M12 11.5v5M9.8 14.3 12 16.5l2.2-2.2"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="form-block">
+          <div class="language-tabs" role="tablist">
+            <button type="button" class="language-tab is-active">EN</button>
+            <button type="button" class="language-tab">RU</button>
+            <button type="button" class="language-tab">ES</button>
+            <button type="button" class="language-tab">PT</button>
+            <button type="button" class="language-tab">TH</button>
+            <button type="button" class="language-tab">AR</button>
+            <button type="button" class="language-tab">VI</button>
+          </div>
+
+          <div class="content-type-tabs" role="tablist">
+            <button type="button" class="content-type-tab is-active" data-content-type="notification">Notification</button>
+            <button type="button" class="content-type-tab" data-content-type="push">Push</button>
+          </div>
+
+          <label class="form-field">
+            <span>Notification title</span>
+            <div class="textarea-counter">
+              <textarea name="title" class="field-control" rows="2" maxlength="100" placeholder="Recommended length is up to 70 characters"></textarea>
+              <span class="textarea-count">0/100</span>
+            </div>
+          </label>
+          <p class="form-hint">Variables – {user_name}, {credits_amount}, {funds_amount}, {balance_amount}</p>
+
+          <label class="form-field">
+            <span>Notification text</span>
+            <div class="textarea-counter">
+              <textarea name="text" class="field-control" rows="4" maxlength="500" placeholder="Recommended length is up to 200 characters"></textarea>
+              <span class="textarea-count">0/500</span>
+            </div>
+          </label>
+          <p class="form-hint">Variables – {user_name}, {credits_amount}, {funds_amount}, {balance_amount}</p>
+
+          <label class="switch-row">
+            <input name="articleFormat" type="checkbox" />
+            <span class="switch-control"></span>
+            <span>Article format</span>
+          </label>
+          <label class="switch-row">
+            <input name="addButton" type="checkbox" />
+            <span class="switch-control"></span>
+            <span>Add a button</span>
+          </label>
+          <label class="switch-row">
+            <input name="important" type="checkbox" />
+            <span class="switch-control"></span>
+            <span>Mark notification as important</span>
+          </label>
+        </section>
+      </div>
+
+      <footer class="drawer-footer">
+        <button class="primary-btn" type="submit" id="notificationSubmit">Create</button>
+        <button class="ghost-btn" type="button" disabled>Preview</button>
+        <button class="ghost-btn" type="button" disabled>Save draft</button>
+      </footer>
+    </form>
+  </aside>
+</div>
+
+<script src="app.js?v=18"></script>
+<script src="users.js?v=18"></script>
+<script src="promotions.js?v=18"></script>
+<script src="notifications.js?v=18"></script>
+<script src="transactions.js?v=18"></script>
+</body>
+</html>
