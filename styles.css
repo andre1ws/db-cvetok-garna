@@ -362,11 +362,19 @@ body {
   flex: none;
 }
 
-.crumbs { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+/* one type treatment across the whole trail; only colour separates the parts */
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -.45px;
+}
 .crumbs a { color: var(--muted); text-decoration: none; }
 .crumbs a:hover { color: var(--accent-ink); }
 .crumbs .sep { color: var(--muted-2); }
-.crumbs .current { color: var(--ink); font-size: 19px; font-weight: 800; letter-spacing: -.45px; }
+.crumbs .current { color: var(--ink); }
 
 .crumb-add {
   display: grid;
