@@ -307,7 +307,7 @@ function renderFilterPanel() {
       </label>
       ${
         field
-          ? `<div class="form-field">
+          ? `<div class="form-field is-auto">
         <span>Condition</span>
         <div class="condition-tabs" role="tablist">
           ${["empty", "is", "isnot"]
@@ -367,12 +367,19 @@ function renderFilterPanel() {
     </div>`;
 }
 
+const escapeHtml = (value) =>
+  String(value).replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`);
+
 function renderPresets() {
   userFilterPresets.innerHTML = state.presets
-    .map(
-      (p) =>
-        `<button type="button" class="preset-chip${p.id === editingPresetId ? " is-active" : ""}" data-preset="${p.id}">${p.name}</button>`
-    )
+    .map((p) => {
+      const name = escapeHtml(p.name);
+      const id = escapeHtml(p.id);
+      return `<span class="preset-chip${p.id === editingPresetId ? " is-active" : ""}">
+        <button type="button" class="preset-chip-label" data-preset="${id}">${name}</button>
+        <button type="button" class="preset-chip-remove" data-preset-remove="${id}" aria-label="Delete preset ${name}" title="Delete preset">&times;</button>
+      </span>`;
+    })
     .join("");
 }
 
@@ -463,6 +470,19 @@ userFilterPanel.addEventListener("click", (e) => {
 });
 
 userFilterPresets.addEventListener("click", (e) => {
+  const remove = e.target.closest("[data-preset-remove]");
+  if (remove) {
+    // Mirrors the "Delete preset" button: drop the saved shortcut only.
+    // The panel stages filters and the table applies them on Confirm, so
+    // deleting a preset must not re-render the table on its own.
+    const id = remove.dataset.presetRemove;
+    state.presets = state.presets.filter((p) => p.id !== id);
+    if (editingPresetId === id) editingPresetId = null;
+    renderPresets();
+    if (!userFilterPanel.hidden) renderFilterPanel();
+    return;
+  }
+
   const btn = e.target.closest("[data-preset]");
   if (!btn) return;
 

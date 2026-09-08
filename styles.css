@@ -7,11 +7,10 @@
   --surface: #ffffff;      /* cards, drawers, sidebar */
   --surface-2: #f7f8f9;    /* filled panels INSIDE a card (profile blocks, form groups) */
   --sidebar: #ffffff;
-  --inset: #eceef1;        /* field fill -- MUST stay distinct from --surface-2 */
 
   --line: #e4e6ea;
   --line-soft: #eff0f3;
-  --line-strong: #bfc4cc;   /* visible control border; 1.71:1 vs white, below the 3:1 of WCAG 1.4.11 -- controls stay identifiable via their icon/label, which does pass */
+  --line-strong: #d0d5dc;   /* visible control border; 1.71:1 vs white, below the 3:1 of WCAG 1.4.11 -- controls stay identifiable via their icon/label, which does pass */
 
   --ink: #111318;
   --ink-2: #3e424a;
@@ -67,7 +66,6 @@ html[data-theme="dark"] {
   --surface: #15171a;
   --surface-2: #1b1d21;
   --sidebar: #15171a;
-  --inset: #232629;        /* field fill -- distinct from --surface-2 */
 
   --line: #282b31;
   --line-soft: #1f2126;
@@ -153,21 +151,6 @@ body {
   align-items: center;
   gap: 10px;
   padding: 0 6px 20px;
-}
-
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--r-inner);
-  color: #fff;
-  background: linear-gradient(150deg, #3b3550, #16131f);
-}
-
-.brand-mark-chart {
-  background: linear-gradient(150deg, var(--accent), var(--accent-deep));
-  color: var(--on-accent);
 }
 
 .brand-name { font-size: 16.5px; font-weight: 800; letter-spacing: -.4px; }
@@ -383,7 +366,7 @@ body {
 .crumbs a { color: var(--muted); text-decoration: none; }
 .crumbs a:hover { color: var(--accent-ink); }
 .crumbs .sep { color: var(--muted-2); }
-.crumbs .current { color: var(--ink); font-size: 23px; font-weight: 800; letter-spacing: -.6px; }
+.crumbs .current { color: var(--ink); font-size: 19px; font-weight: 800; letter-spacing: -.45px; }
 
 .crumb-add {
   display: grid;
@@ -626,8 +609,9 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 .preset-chip {
   display: inline-flex;
   align-items: center;
+  gap: 2px;
   height: var(--control-h);
-  padding: 0 14px;
+  padding: 0 5px 0 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   background: var(--surface);
@@ -635,14 +619,38 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
   font: inherit;
   font-size: 11.5px;
   font-weight: 600;
+}
+
+.preset-chip-label {
+  padding: 0 4px 0 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
   cursor: pointer;
 }
 
-.preset-chip:hover { background: var(--chip); }
+.preset-chip-remove {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.preset-chip-remove:hover { background: var(--chip); color: var(--ink); }
+
+.preset-chip:hover { border-color: var(--muted-2); }
 
 .preset-chip.is-active {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  background: var(--accent-soft);
+  border-color: var(--accent-ink);
+  background: var(--surface);
   color: var(--accent-ink);
 }
 
@@ -694,15 +702,17 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 }
 
 .filter-row .form-field { width: 200px; }
+.filter-row .form-field.is-auto { width: auto; }
 .filter-row .form-field.is-grow { width: 240px; }
 
 .condition-tabs {
   display: inline-flex;
   gap: 2px;
   padding: 3px;
+  width: max-content;
   border-radius: var(--r-pill);
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
 }
 
 .condition-tab {
@@ -751,12 +761,20 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 6px 6px 12px;
+  padding: 5px 5px 5px 12px;
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   background: var(--accent-soft);
-  color: var(--accent-ink);
+  color: var(--muted);
   font-size: 12px;
   font-weight: 500;
+}
+
+.filter-chip b,
+.filter-chip em {
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 600;
 }
 
 .filter-chip b { font-weight: 700; }
@@ -769,8 +787,8 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
   height: 18px;
   border: 0;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 16%, transparent);
-  color: var(--accent-ink);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: var(--ink-2);
   font-size: 12px;
   line-height: 1;
   cursor: pointer;
@@ -839,7 +857,7 @@ table.data-table thead th {
   box-shadow: inset 0 -1px 0 var(--line);
 }
 
-table.data-table td { padding: 14px 12px; }
+table.data-table td { padding: 9px 12px; }
 table.data-table td:first-child, table.data-table th:first-child { padding-left: 14px; }
 table.data-table td:last-child, table.data-table th:last-child { padding-right: 14px; }
 table.data-table tbody tr { cursor: pointer; }
@@ -1431,7 +1449,7 @@ table.notifications-table { min-width: 900px; }
   border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   outline: 0;
-  background: var(--inset);
+  background: var(--surface);
   color: var(--ink);
   font: inherit;
   font-size: 12.5px;
@@ -1471,7 +1489,6 @@ html[data-theme="dark"] .form-field select {
 .form-field select:focus,
 .form-field textarea:focus {
   border-color: var(--accent);
-  background: var(--surface);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
