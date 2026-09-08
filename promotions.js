@@ -33,10 +33,25 @@ function formatPromotionDate(iso) {
   return `${day} ${promotionMonth[Number(month) - 1]} ${year}`;
 }
 
+const promotionFilter = createFilter({
+  toggle: document.getElementById("promotionFilterToggle"),
+  panel: document.getElementById("promotionFilterPanel"),
+  presets: document.getElementById("promotionFilterPresets"),
+  fields: [
+    { key: "segment", label: "Segment", options: () => filterUnique(PROMOTIONS.map((p) => p.segment)) },
+    { key: "countries", label: "Countries", options: () => filterUnique(PROMOTIONS.map((p) => p.countries)) },
+    { key: "destination", label: "Button leads to", options: () => filterUnique(PROMOTIONS.map((p) => p.destination)) },
+  ],
+  getValue: (item, key) => item[key],
+  onApply: () => renderPromotions(),
+});
+
 function filteredPromotions() {
   const query = promotionState.query.trim().toLowerCase();
-  const rows = PROMOTIONS.filter((item) =>
-    !query || `${item.name} ${item.segment} ${item.countries}`.toLowerCase().includes(query)
+  const rows = PROMOTIONS.filter(
+    (item) =>
+      promotionFilter.matches(item) &&
+      (!query || `${item.name} ${item.segment} ${item.countries}`.toLowerCase().includes(query))
   );
   return rows.sort((a, b) =>
     a.updated.localeCompare(b.updated) * (promotionState.sortDirection === "asc" ? 1 : -1)

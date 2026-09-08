@@ -98,10 +98,25 @@ function formatNotificationDate(iso) {
   return `${day} ${notificationMonth[Number(month) - 1]} ${year}`;
 }
 
+const notificationFilter = createFilter({
+  toggle: document.getElementById("notificationFilterToggle"),
+  panel: document.getElementById("notificationFilterPanel"),
+  presets: document.getElementById("notificationFilterPresets"),
+  fields: [
+    { key: "sender", label: "Sender", options: () => filterUnique(NOTIFICATIONS.map((n) => n.sender)) },
+    { key: "segment", label: "Segment", options: () => filterUnique(NOTIFICATIONS.map((n) => n.segment)) },
+    { key: "push", label: "Push", options: () => ["Yes", "No"] },
+  ],
+  getValue: (item, key) => (key === "push" ? (item.push ? "Yes" : "No") : item[key]),
+  onApply: () => renderNotifications(),
+});
+
 function filteredNotifications() {
   const query = notificationState.query.trim().toLowerCase();
-  const rows = NOTIFICATIONS.filter((item) =>
-    !query || `${item.sender} ${item.email}`.toLowerCase().includes(query)
+  const rows = NOTIFICATIONS.filter(
+    (item) =>
+      notificationFilter.matches(item) &&
+      (!query || `${item.sender} ${item.email}`.toLowerCase().includes(query))
   );
   return rows.sort((a, b) =>
     a.sent.localeCompare(b.sent) * (notificationState.sortDirection === "asc" ? 1 : -1)

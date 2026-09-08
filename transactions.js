@@ -36,9 +36,26 @@ function formatTransactionDate(iso) {
   return `${d} ${months[Number(m) - 1]} ${y}`;
 }
 
+const transactionFilter = createFilter({
+  toggle: document.getElementById("transactionFilterToggle"),
+  panel: document.getElementById("transactionFilterPanel"),
+  presets: document.getElementById("transactionFilterPresets"),
+  fields: [
+    { key: "status", label: "Status", options: () => filterUnique(TRANSACTIONS.map((t) => t.status)) },
+    { key: "method", label: "Payment method", options: () => filterUnique(TRANSACTIONS.map((t) => t.method)) },
+    { key: "expresses", label: "Expresses", options: () => ["Yes", "No"] },
+    { key: "linked", label: "Linked account", options: () => ["Yes", "No"] },
+  ],
+  getValue: (item, key) =>
+    key === "expresses" || key === "linked" ? (item[key] ? "Yes" : "No") : item[key],
+  onApply: () => renderTransactions(),
+});
+
 function visibleTransactions() {
   const q = transactionState.query.trim().toLowerCase();
-  const rows = TRANSACTIONS.filter((t) => !q || t.user.toLowerCase().includes(q));
+  const rows = TRANSACTIONS.filter(
+    (t) => transactionFilter.matches(t) && (!q || t.user.toLowerCase().includes(q))
+  );
 
   const factor = transactionState.dir === "asc" ? 1 : -1;
   return rows.sort((a, b) => {

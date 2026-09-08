@@ -147,25 +147,14 @@ function fieldValue(user, key) {
   return undefined;
 }
 
-const state = { query: "", onlyChecking: false, sortBy: "lastAction", dir: "desc", filters: [], presets: [] };
-let filterDraft = { fieldKey: "", condition: "is", value: "" };
-let editingPresetId = null;
-
-function matchesFilters(user) {
-  return state.filters.every((f) => {
-    const val = fieldValue(user, f.fieldKey);
-    if (f.condition === "empty") return !val;
-    if (f.condition === "isnot") return val !== f.value;
-    return val === f.value;
-  });
-}
+const state = { query: "", onlyChecking: false, sortBy: "lastAction", dir: "desc" };
 
 function visibleUsers() {
   const q = state.query.trim().toLowerCase();
 
   const rows = USERS.filter((u) => {
     if (state.onlyChecking && u.kyc !== "checking") return false;
-    if (!matchesFilters(u)) return false;
+    if (!userFilter.matches(u)) return false;
     if (!q) return true;
     return `${u.name} ${u.email} ${u.role || ""}`.toLowerCase().includes(q);
   });
@@ -283,224 +272,13 @@ kycFilter.addEventListener("click", () => {
 
 /* ---------- Filter panel & presets ---------- */
 
-const fieldLabel = (key) => FILTER_FIELDS.find((f) => f.key === key)?.label || key;
-const conditionLabel = (c) => (c === "empty" ? "Empty" : c === "isnot" ? "is not" : "is");
-
-function updateFilterToggleState() {
-  userFilterToggle.classList.toggle("is-active", state.filters.length > 0);
-}
-
-function renderFilterPanel() {
-  const field = FILTER_FIELDS.find((f) => f.key === filterDraft.fieldKey);
-  const needsValue = filterDraft.condition !== "empty";
-
-  userFilterPanel.innerHTML = `
-    <div class="filter-row">
-      <label class="form-field">
-        <span>Value</span>
-        <select class="field-control" id="filterField">
-          <option value="">Choose</option>
-          ${FILTER_FIELDS.map(
-            (f) => `<option value="${f.key}"${f.key === filterDraft.fieldKey ? " selected" : ""}>${f.label}</option>`
-          ).join("")}
-        </select>
-      </label>
-      ${
-        field
-          ? `<div class="form-field is-auto">
-        <span>Condition</span>
-        <div class="condition-tabs" role="tablist">
-          ${["empty", "is", "isnot"]
-            .map(
-              (c) =>
-                `<button type="button" class="condition-tab${filterDraft.condition === c ? " is-active" : ""}" data-condition="${c}">${
-                  c === "empty" ? "Empty" : c === "is" ? "It is" : "It is not"
-                }</button>`
-            )
-            .join("")}
-        </div>
-      </div>`
-          : ""
-      }
-      ${
-        field && needsValue
-          ? `<label class="form-field is-grow">
-        <span>Choose</span>
-        <select class="field-control" id="filterValue">
-          <option value="">Choose</option>
-          ${field
-            .options()
-            .map((o) => `<option value="${o}"${o === filterDraft.value ? " selected" : ""}>${o}</option>`)
-            .join("")}
-        </select>
-      </label>`
-          : ""
-      }
-    </div>
-
-    <div class="filter-chips-block">
-      <span class="filter-chips-label">Added filters</span>
-      <div class="filter-chips">
-        ${
-          state.filters.length === 0
-            ? '<span class="filter-chips-empty">No filters added yet</span>'
-            : state.filters
-                .map(
-                  (f, i) => `
-          <span class="filter-chip">
-            <b>${fieldLabel(f.fieldKey)}</b> ${conditionLabel(f.condition)}${f.condition !== "empty" ? ` <em>${f.value}</em>` : ""}
-            <button type="button" class="filter-chip-remove" data-remove-filter="${i}" aria-label="Remove filter">×</button>
-          </span>`
-                )
-                .join("") + '<button type="button" class="filter-clear" id="clearFilters">Clear</button>'
-        }
-      </div>
-    </div>
-
-    <div class="filter-footer">
-      ${editingPresetId ? '<button type="button" class="danger-btn" id="deletePreset">Delete preset</button>' : "<span></span>"}
-      <div class="filter-footer-right">
-        <input type="text" class="field-control filter-preset-input" id="presetName" placeholder="Enter the preset name" />
-        <button type="button" class="filter-btn" id="createPreset"${state.filters.length ? "" : " disabled"}>Create</button>
-        <button type="button" class="primary-btn" id="confirmFilters">Confirm</button>
-      </div>
-    </div>`;
-}
-
-const escapeHtml = (value) =>
-  String(value).replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`);
-
-function renderPresets() {
-  userFilterPresets.innerHTML = state.presets
-    .map((p) => {
-      const name = escapeHtml(p.name);
-      const id = escapeHtml(p.id);
-      return `<span class="preset-chip${p.id === editingPresetId ? " is-active" : ""}">
-        <button type="button" class="preset-chip-label" data-preset="${id}">${name}</button>
-        <button type="button" class="preset-chip-remove" data-preset-remove="${id}" aria-label="Delete preset ${name}" title="Delete preset">&times;</button>
-      </span>`;
-    })
-    .join("");
-}
-
-userFilterToggle.addEventListener("click", () => {
-  const willOpen = userFilterPanel.hidden;
-  userFilterPanel.hidden = !willOpen;
-  userFilterToggle.setAttribute("aria-expanded", String(willOpen));
-  if (willOpen) renderFilterPanel();
-});
-
-function addDraftFilter() {
-  state.filters.push({ ...filterDraft });
-  filterDraft = { fieldKey: "", condition: "is", value: "" };
-  editingPresetId = null;
-  renderFilterPanel();
-  renderPresets();
-}
-
-userFilterPanel.addEventListener("change", (e) => {
-  if (e.target.id === "filterField") {
-    filterDraft = { fieldKey: e.target.value, condition: "is", value: "" };
-    renderFilterPanel();
-  } else if (e.target.id === "filterValue") {
-    filterDraft.value = e.target.value;
-    if (filterDraft.value) addDraftFilter();
-    else renderFilterPanel();
-  }
-});
-
-userFilterPanel.addEventListener("click", (e) => {
-  const condBtn = e.target.closest("[data-condition]");
-  if (condBtn) {
-    filterDraft.condition = condBtn.dataset.condition;
-    if (filterDraft.condition === "empty") {
-      addDraftFilter();
-    } else {
-      filterDraft.value = "";
-      renderFilterPanel();
-    }
-    return;
-  }
-
-  const removeBtn = e.target.closest("[data-remove-filter]");
-  if (removeBtn) {
-    state.filters.splice(Number(removeBtn.dataset.removeFilter), 1);
-    editingPresetId = null;
-    renderFilterPanel();
-    renderPresets();
-    updateFilterToggleState();
-    render();
-    return;
-  }
-
-  if (e.target.id === "clearFilters") {
-    state.filters = [];
-    editingPresetId = null;
-    renderFilterPanel();
-    renderPresets();
-    updateFilterToggleState();
-    render();
-    return;
-  }
-
-  if (e.target.id === "confirmFilters") {
-    updateFilterToggleState();
-    render();
-    return;
-  }
-
-  if (e.target.id === "createPreset") {
-    const nameInput = document.getElementById("presetName");
-    const name = nameInput.value.trim();
-    if (!name || !state.filters.length) return;
-    const preset = { id: `preset-${state.presets.length}-${name}`, name, filters: state.filters.map((f) => ({ ...f })) };
-    state.presets.push(preset);
-    editingPresetId = preset.id;
-    renderPresets();
-    renderFilterPanel();
-    return;
-  }
-
-  if (e.target.id === "deletePreset") {
-    state.presets = state.presets.filter((p) => p.id !== editingPresetId);
-    editingPresetId = null;
-    renderPresets();
-    renderFilterPanel();
-  }
-});
-
-userFilterPresets.addEventListener("click", (e) => {
-  const remove = e.target.closest("[data-preset-remove]");
-  if (remove) {
-    // Mirrors the "Delete preset" button: drop the saved shortcut only.
-    // The panel stages filters and the table applies them on Confirm, so
-    // deleting a preset must not re-render the table on its own.
-    const id = remove.dataset.presetRemove;
-    state.presets = state.presets.filter((p) => p.id !== id);
-    if (editingPresetId === id) editingPresetId = null;
-    renderPresets();
-    if (!userFilterPanel.hidden) renderFilterPanel();
-    return;
-  }
-
-  const btn = e.target.closest("[data-preset]");
-  if (!btn) return;
-
-  if (btn.dataset.preset === editingPresetId) {
-    state.filters = [];
-    editingPresetId = null;
-  } else {
-    const preset = state.presets.find((p) => p.id === btn.dataset.preset);
-    if (!preset) return;
-    state.filters = preset.filters.map((f) => ({ ...f }));
-    editingPresetId = preset.id;
-  }
-
-  filterDraft = { fieldKey: "", condition: "is", value: "" };
-  updateFilterToggleState();
-  renderPresets();
-  if (!userFilterPanel.hidden) renderFilterPanel();
-  render();
+const userFilter = createFilter({
+  toggle: userFilterToggle,
+  panel: userFilterPanel,
+  presets: userFilterPresets,
+  fields: FILTER_FIELDS,
+  getValue: fieldValue,
+  onApply: render,
 });
 
 document.getElementById("kycCount").textContent = USERS.filter((u) => u.kyc === "checking").length;
