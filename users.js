@@ -276,6 +276,7 @@ const userFilter = createFilter({
   toggle: userFilterToggle,
   panel: userFilterPanel,
   presets: userFilterPresets,
+  active: document.getElementById("userActiveFilters"),
   fields: FILTER_FIELDS,
   getValue: fieldValue,
   onApply: render,

@@ -102,6 +102,7 @@ const notificationFilter = createFilter({
   toggle: document.getElementById("notificationFilterToggle"),
   panel: document.getElementById("notificationFilterPanel"),
   presets: document.getElementById("notificationFilterPresets"),
+  active: document.getElementById("notificationActiveFilters"),
   fields: [
     { key: "sender", label: "Sender", options: () => filterUnique(NOTIFICATIONS.map((n) => n.sender)) },
     { key: "segment", label: "Segment", options: () => filterUnique(NOTIFICATIONS.map((n) => n.segment)) },

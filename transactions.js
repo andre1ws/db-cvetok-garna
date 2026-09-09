@@ -40,6 +40,7 @@ const transactionFilter = createFilter({
   toggle: document.getElementById("transactionFilterToggle"),
   panel: document.getElementById("transactionFilterPanel"),
   presets: document.getElementById("transactionFilterPresets"),
+  active: document.getElementById("transactionActiveFilters"),
   fields: [
     { key: "status", label: "Status", options: () => filterUnique(TRANSACTIONS.map((t) => t.status)) },
     { key: "method", label: "Payment method", options: () => filterUnique(TRANSACTIONS.map((t) => t.method)) },
@@ -65,13 +66,13 @@ function visibleTransactions() {
   });
 }
 
-function txSortHeader(label, key) {
+function txSortHeader(label, key, numeric = false) {
   const active = transactionState.sortBy === key;
   const classes = ["sort-th", active ? "is-active" : "", active && transactionState.dir === "desc" ? "is-desc" : ""]
     .filter(Boolean)
     .join(" ");
 
-  return `<th class="col-num">
+  return `<th${numeric ? ' class="col-num"' : ""}>
     <button class="${classes}" data-sort="${key}">
       <span class="sort-arrow">${txSvg('<path d="M12 19V5M6.5 11.5 12 5.5l5.5 6"/>', 13, 1.8)}</span>
       ${label}
@@ -116,7 +117,7 @@ function renderTransactions() {
           ${txSortHeader("Date of creation", "created")}
           ${txSortHeader("Updated at", "updated")}
           <th><span class="th-inner">Payment method ${txSvg('<circle cx="12" cy="12" r="8.5"/><path d="M12 16v.01M12 8v5"/>', 13, 1.6)}</span></th>
-          ${txSortHeader("Amount", "amount")}
+          ${txSortHeader("Amount", "amount", true)}
         </tr>
       </thead>
       <tbody>${rows.map(renderTransactionRow).join("")}</tbody>

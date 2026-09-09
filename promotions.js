@@ -37,6 +37,7 @@ const promotionFilter = createFilter({
   toggle: document.getElementById("promotionFilterToggle"),
   panel: document.getElementById("promotionFilterPanel"),
   presets: document.getElementById("promotionFilterPresets"),
+  active: document.getElementById("promotionActiveFilters"),
   fields: [
     { key: "segment", label: "Segment", options: () => filterUnique(PROMOTIONS.map((p) => p.segment)) },
     { key: "countries", label: "Countries", options: () => filterUnique(PROMOTIONS.map((p) => p.countries)) },

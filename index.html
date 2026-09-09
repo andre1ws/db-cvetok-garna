@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=31" />
+<link rel="stylesheet" href="styles.css?v=40" />
 </head>
 <body>
 <div class="app">
@@ -179,9 +179,13 @@
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
               <input id="userSearch" type="search" placeholder="Username, channel or email" />
             </label>
-            <button class="icon-btn is-bordered" id="userFilterToggle" title="Filter" aria-label="Filter" aria-expanded="false">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
-            </button>
+            <div class="filter-anchor">
+              <button class="icon-btn is-bordered" id="userFilterToggle" title="Filter" aria-label="Filter" aria-expanded="false" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+              </button>
+              <div class="filter-pop" id="userFilterPanel" role="dialog" aria-label="Filter" hidden></div>
+            </div>
+            <div class="active-filters" id="userActiveFilters"></div>
             <div class="preset-chips" id="userFilterPresets"></div>
           </div>
 
@@ -200,8 +204,6 @@
           </div>
         </div>
 
-        <div class="filter-panel" id="userFilterPanel" hidden></div>
-
         <div class="data-table-wrap" id="usersTable"></div>
         <p class="empty-note" id="usersEmpty" hidden>No users match your search.</p>
       </section>
@@ -213,9 +215,13 @@
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
               <input id="promotionSearch" type="search" placeholder="Banner name" />
             </label>
-            <button class="icon-btn is-bordered" id="promotionFilterToggle" title="Filter" aria-label="Filter promotions" aria-expanded="false">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
-            </button>
+            <div class="filter-anchor">
+              <button class="icon-btn is-bordered" id="promotionFilterToggle" title="Filter" aria-label="Filter promotions" aria-expanded="false" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+              </button>
+              <div class="filter-pop" id="promotionFilterPanel" role="dialog" aria-label="Filter" hidden></div>
+            </div>
+            <div class="active-filters" id="promotionActiveFilters"></div>
             <div class="preset-chips" id="promotionFilterPresets"></div>
           </div>
           <button class="ghost-btn archive-btn">
@@ -223,8 +229,6 @@
             <span>Archive</span>
           </button>
         </div>
-
-        <div class="filter-panel" id="promotionFilterPanel" hidden></div>
 
         <div class="data-table-wrap" id="promotionsTable"></div>
         <p class="empty-note" id="promotionsEmpty" hidden>No promotions match your search.</p>
@@ -237,9 +241,13 @@
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
               <input id="notificationSearch" type="search" placeholder="Username or email" />
             </label>
-            <button class="icon-btn is-bordered" id="notificationFilterToggle" title="Filter" aria-label="Filter notifications" aria-expanded="false">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
-            </button>
+            <div class="filter-anchor">
+              <button class="icon-btn is-bordered" id="notificationFilterToggle" title="Filter" aria-label="Filter notifications" aria-expanded="false" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+              </button>
+              <div class="filter-pop" id="notificationFilterPanel" role="dialog" aria-label="Filter" hidden></div>
+            </div>
+            <div class="active-filters" id="notificationActiveFilters"></div>
             <div class="preset-chips" id="notificationFilterPresets"></div>
           </div>
           <button class="ghost-btn archive-btn">
@@ -247,8 +255,6 @@
             <span>Archive</span>
           </button>
         </div>
-
-        <div class="filter-panel" id="notificationFilterPanel" hidden></div>
 
         <div class="data-table-wrap" id="notificationsTable"></div>
         <p class="empty-note" id="notificationsEmpty" hidden>No notifications match your search.</p>
@@ -261,9 +267,13 @@
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
               <input id="transactionSearch" type="search" placeholder="Username / Email / Account Number" />
             </label>
-            <button class="icon-btn is-bordered" id="transactionFilterToggle" title="Filter" aria-label="Filter transactions" aria-expanded="false">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
-            </button>
+            <div class="filter-anchor">
+              <button class="icon-btn is-bordered" id="transactionFilterToggle" title="Filter" aria-label="Filter transactions" aria-expanded="false" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+              </button>
+              <div class="filter-pop" id="transactionFilterPanel" role="dialog" aria-label="Filter" hidden></div>
+            </div>
+            <div class="active-filters" id="transactionActiveFilters"></div>
             <div class="preset-chips" id="transactionFilterPresets"></div>
           </div>
 
@@ -288,8 +298,6 @@
             </button>
           </div>
         </div>
-
-        <div class="filter-panel" id="transactionFilterPanel" hidden></div>
 
         <div class="data-table-wrap" id="transactionsTable"></div>
         <p class="empty-note" id="transactionsEmpty" hidden>No transactions match your search.</p>
@@ -583,11 +591,11 @@
   </aside>
 </div>
 
-<script src="filters.js?v=31"></script>
-<script src="app.js?v=31"></script>
-<script src="users.js?v=31"></script>
-<script src="promotions.js?v=31"></script>
-<script src="notifications.js?v=31"></script>
-<script src="transactions.js?v=31"></script>
+<script src="filters.js?v=40"></script>
+<script src="app.js?v=40"></script>
+<script src="users.js?v=40"></script>
+<script src="promotions.js?v=40"></script>
+<script src="notifications.js?v=40"></script>
+<script src="transactions.js?v=40"></script>
 </body>
 </html>
