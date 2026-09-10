@@ -1529,6 +1529,57 @@ tr:focus-within .row-actions { opacity: 1; }
 .row-action:hover { background: var(--chip); color: var(--ink); }
 .row-action:focus-visible { opacity: 1; outline: 2px solid var(--accent); outline-offset: -2px; }
 
+/* ---------- Partners ---------- */
+
+table.partners-table { min-width: 1240px; }
+
+/* the name column is the row's anchor: a hairline separates it from the data,
+   and the link / archive affordances sit at its right edge */
+.partner-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+table.partners-table td:first-child,
+table.partners-table th:first-child,
+table.partners-table tfoot td:first-child { border-right: 1px solid var(--line-soft); }
+
+.partner-cell-side {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+}
+
+.partner-link {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  color: var(--muted-2);
+}
+
+/* two-line headings need the cell to align its content to the bottom */
+table.partners-table thead th { vertical-align: bottom; }
+
+table.partners-table tfoot td {
+  position: sticky;
+  bottom: 0;
+  padding: 12px 10px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+table.partners-table tfoot td:first-child { padding-left: 14px; }
+table.partners-table tfoot td:last-child { padding-right: 14px; }
+
+.period-picker { width: 210px; }
+
 /* ---------- Labels ---------- */
 
 table.labels-table { min-width: 900px; }

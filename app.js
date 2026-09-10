@@ -24,6 +24,7 @@ const CRUMBS = {
   promotions: ["Administrator", "Promotions"],
   notifications: ["Administrator", "Notifications"],
   labels: ["Administrator", "Labels"],
+  partners: ["CSP", "Partners"],
   transactions: ["Payments", "Transactions"],
 };
 

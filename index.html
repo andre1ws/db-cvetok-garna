@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=52" />
+<link rel="stylesheet" href="styles.css?v=53" />
 </head>
 <body>
 <div class="app">
@@ -78,11 +78,18 @@
         </div>
       </div>
 
-      <a class="nav-item" href="#">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.3 5.5 12.8a4.6 4.6 0 0 1 6.5-6.5 4.6 4.6 0 0 1 6.5 6.5Z"/></svg>
-        <span>CSP</span>
-        <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
-      </a>
+      <div class="nav-group" data-group>
+        <button class="nav-item nav-parent" data-group-toggle type="button">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.3 5.5 12.8a4.6 4.6 0 0 1 6.5-6.5 4.6 4.6 0 0 1 6.5 6.5Z"/></svg>
+          <span>CSP</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <div class="nav-group-body">
+          <a class="nav-item nav-sub" href="#" data-view="partners">
+            <span>Partners</span>
+          </a>
+        </div>
+      </div>
 
       <a class="nav-item" href="#">
         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.6 12 5l7.5 4.6"/><path d="M6.6 11.4v6.2M12 11.4v6.2M17.4 11.4v6.2"/><path d="M4 19.4h16"/></svg>
@@ -259,6 +266,44 @@
 
         <div class="data-table-wrap" id="labelsTable"></div>
         <p class="empty-note" id="labelsEmpty" hidden>No labels match your search.</p>
+      </section>
+
+      <section class="view" data-view="partners" hidden>
+        <div class="toolbar toolbar-plain">
+          <div class="toolbar-left">
+            <label class="search search-wide">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+              <input id="partnerSearch" type="search" placeholder="Partner name or email" />
+            </label>
+            <div class="filter-anchor">
+              <button class="icon-btn is-bordered" id="partnerFilterToggle" title="Filter" aria-label="Filter partners" aria-expanded="false" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
+              </button>
+              <div class="filter-pop" id="partnerFilterPanel" role="dialog" aria-label="Filter" hidden></div>
+            </div>
+            <div class="active-filters" id="partnerActiveFilters"></div>
+            <div class="preset-chips" id="partnerFilterPresets"></div>
+          </div>
+
+          <div class="toolbar-right">
+            <label class="search period-picker">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14" rx="2.4"/><path d="M8 3.8v3.4M16 3.8v3.4M4 10.2h16"/></svg>
+              <input type="text" placeholder="Select period" />
+            </label>
+            <button class="ghost-btn kyc-btn" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h5M14.5 12h5"/><path d="m7.5 9.5-3 2.5 3 2.5"/><path d="m16.5 9.5 3 2.5-3 2.5"/></svg>
+              <span>Main partner</span>
+              <span class="count-badge">931</span>
+            </button>
+            <button class="ghost-btn archive-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M3 4h18v4H3zM9 12h6"/></svg>
+              <span>Archive</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="data-table-wrap" id="partnersTable"></div>
+        <p class="empty-note" id="partnersEmpty" hidden>No partners match your search.</p>
       </section>
 
       <section class="view" data-view="notifications" hidden>
@@ -618,12 +663,13 @@
   </aside>
 </div>
 
-<script src="filters.js?v=52"></script>
-<script src="app.js?v=52"></script>
-<script src="users.js?v=52"></script>
-<script src="promotions.js?v=52"></script>
-<script src="labels.js?v=52"></script>
-<script src="notifications.js?v=52"></script>
-<script src="transactions.js?v=52"></script>
+<script src="filters.js?v=53"></script>
+<script src="app.js?v=53"></script>
+<script src="users.js?v=53"></script>
+<script src="promotions.js?v=53"></script>
+<script src="labels.js?v=53"></script>
+<script src="partners.js?v=53"></script>
+<script src="notifications.js?v=53"></script>
+<script src="transactions.js?v=53"></script>
 </body>
 </html>
