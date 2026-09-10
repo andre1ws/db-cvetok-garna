@@ -18,12 +18,15 @@
   --muted-2: #979ba4;      /* decorative only: chevrons, separators, scrollbar */
 
   /* lime accent: fill vs. ink-on-light are different colors */
-  --accent: #c3f53c;
-  --accent-deep: #aee626;
-  --accent-ink: #4a7a12;
-  --accent-soft: #eef0f4;   /* neutral, not lime: the green now lives in the text, not the fill */
-  --accent-glow: rgba(195, 245, 60, .45);
-  --on-accent: #12150f;
+  /* brand purple. #8756FF itself sits in a dead zone -- white on it is 4.37
+     and dark ink 4.25, so neither passes. The fill is nudged 7/765 darker,
+     which is invisible, and white then clears at 4.53. */
+  --accent: #8452ff;
+  --accent-deep: #6628ff;
+  --accent-ink: #7137ff;    /* accent used as text on light surfaces */
+  --accent-soft: #eef0f4;   /* tint stays neutral */
+  --accent-glow: rgba(132, 82, 255, .38);
+  --on-accent: #ffffff;
 
   --dark-surface: #0f1114;
   --dark-surface-2: #1a1d21;
@@ -49,19 +52,18 @@
   --r-card: 24px;
   --r-inner: 18px;
   --r-chip: 12px;
-  --r-badge: 5px;
+  --r-badge: 6px;
   --r-pill: 999px;
 
-  /* solid status badges. Amber takes dark ink: white on it measures 1.95,
-     and any amber dark enough for white stops reading as amber. */
-  --st-ok-bg: #3b863b;
-  --st-ok-ink: #ffffff;
-  --st-warn-bg: #f0ad4e;
-  --st-warn-ink: #12150f;
-  --st-bad-bg: #d5413d;
-  --st-bad-ink: #ffffff;
-  --st-neutral-bg: #d7dae0;
-  --st-neutral-ink: #12150f;
+  /* Status badges follow the reference exactly: these fills with white text.
+     Deliberately below the 4.5 text minimum -- white measures 1.95 on the
+     amber, 2.48 on the green, 3.72 on the red. Chosen for the look. */
+  --st-ink: #ffffff;
+  --st-new-bg: #f0ad4e;
+  --st-ok-bg: #5cb85c;
+  --st-bad-bg: #e0574f;
+  --st-processing-bg: #c5b3f0;
+  --st-neutral-bg: #bfc4c8;
 
   --control-h: 38px;   /* every bordered toolbar control shares this height */
 
@@ -88,21 +90,18 @@ html[data-theme="dark"] {
   --muted: #9aa0a9;
   --muted-2: #757a83;
 
-  --accent: #c3f53c;
-  --accent-deep: #d3ff5c;
-  --accent-ink: #c3f53c;
-  --accent-soft: #23262c;   /* neutral, not olive: the lime now lives in the text, not the fill */
-  --accent-glow: rgba(195, 245, 60, .28);
-  --on-accent: #12150f;
+  --accent: #8452ff;
+  --accent-deep: #9d75ff;
+  --accent-ink: #9d75ff;
+  --accent-soft: #23262c;   /* tint stays neutral */
+  --accent-glow: rgba(132, 82, 255, .32);
+  --on-accent: #ffffff;
 
   --dark-surface: #0a0b0c;
   --dark-surface-2: #17191d;
 
   --chip: #1f2226;
   --nav-active: #292d33;
-
-  --st-neutral-bg: #343a44;
-  --st-neutral-ink: #f3f4f6;
   --check-border: #3d424a;
 
   /* semantic tints desaturated: the ink carries the hue, the fill stays dark */
@@ -1139,32 +1138,36 @@ table.tasks th.col-num { text-align: right; }
 
 .kyc-badge {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 5px 11px;
   border-radius: var(--r-badge);
   background: var(--st-ok-bg);
-  color: var(--st-ok-ink);
+  color: var(--st-ink);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-.kyc-badge.is-pending { background: var(--st-warn-bg); color: var(--st-warn-ink); }
+.kyc-badge.is-pending { background: var(--st-new-bg); }
 
 /* ---------- Transactions ---------- */
 
 .status-pill {
   display: inline-block;
-  padding: 4px 11px;
+  padding: 5px 11px;
   border-radius: var(--r-badge);
+  color: var(--st-ink);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-.status-pill.is-new { background: var(--st-warn-bg); color: var(--st-warn-ink); }
-.status-pill.is-confirmed { background: var(--st-ok-bg); color: var(--st-ok-ink); }
+.status-pill.is-new { background: var(--st-new-bg); }
+.status-pill.is-confirmed { background: var(--st-ok-bg); }
+.status-pill.is-processing { background: var(--st-processing-bg); }
+.status-pill.is-processing-auto { background: var(--st-neutral-bg); }
+.status-pill.is-rejected { background: var(--st-bad-bg); }
 
 .method-link { color: var(--accent-ink); font-weight: 500; }
 .method-plain { color: var(--ink-2); }
@@ -1453,15 +1456,17 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
 
 .status-chip.is-ok,
 .status-chip.is-muted {
+  padding: 5px 11px;
   border-radius: var(--r-badge);
+  color: var(--st-ink);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-.status-chip.is-ok { background: var(--st-ok-bg); color: var(--st-ok-ink); }
-.status-chip.is-muted { background: var(--st-neutral-bg); color: var(--st-neutral-ink); }
+.status-chip.is-ok { background: var(--st-ok-bg); }
+.status-chip.is-muted { background: var(--st-neutral-bg); }
 .status-chip.is-accent { background: var(--accent-soft); color: var(--accent-ink); }
 
 .two-fa { display: inline-flex; align-items: center; gap: 7px; }
