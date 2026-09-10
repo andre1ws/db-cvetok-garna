@@ -89,7 +89,7 @@ function renderTransactionRow(t) {
     <tr data-transaction="${t.id}" tabindex="0">
       <td>
         <div class="user-cell">
-          <span class="avatar avatar-user ${t.avatar}">${t.user.charAt(0).toUpperCase()}</span>
+          <span class="avatar avatar-user ${avatarTone(t.user, t.avatar)}">${avatarContent(t.user)}</span>
           <span class="user-cell-meta"><strong>${t.user}</strong></span>
           ${info}
         </div>

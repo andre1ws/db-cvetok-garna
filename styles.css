@@ -49,7 +49,19 @@
   --r-card: 24px;
   --r-inner: 18px;
   --r-chip: 12px;
+  --r-badge: 5px;
   --r-pill: 999px;
+
+  /* solid status badges. Amber takes dark ink: white on it measures 1.95,
+     and any amber dark enough for white stops reading as amber. */
+  --st-ok-bg: #3b863b;
+  --st-ok-ink: #ffffff;
+  --st-warn-bg: #f0ad4e;
+  --st-warn-ink: #12150f;
+  --st-bad-bg: #d5413d;
+  --st-bad-ink: #ffffff;
+  --st-neutral-bg: #d7dae0;
+  --st-neutral-ink: #12150f;
 
   --control-h: 38px;   /* every bordered toolbar control shares this height */
 
@@ -88,6 +100,9 @@ html[data-theme="dark"] {
 
   --chip: #1f2226;
   --nav-active: #292d33;
+
+  --st-neutral-bg: #343a44;
+  --st-neutral-ink: #f3f4f6;
   --check-border: #3d424a;
 
   /* semantic tints desaturated: the ink carries the hue, the fill stays dark */
@@ -123,7 +138,7 @@ body {
 
 .app {
   display: grid;
-  grid-template-columns: 248px minmax(0, 1fr);
+  grid-template-columns: 211px minmax(0, 1fr);   /* 15% narrower than 248 */
   gap: 14px;
   width: 100%;
   height: 100%;
@@ -137,7 +152,7 @@ body {
   flex-direction: column;
   min-height: 0;
   height: 100%;
-  padding: 18px 12px 12px;
+  padding: 18px 10px 10px;
   border-right: 0;
   border-radius: var(--radius-panel);
   background: var(--sidebar);
@@ -190,9 +205,9 @@ body {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   width: 100%;
-  padding: 8px 10px;
+  padding: 8px 8px;
   border: 0;
   border-radius: var(--r-pill);
   background: none;
@@ -207,6 +222,12 @@ body {
 }
 
 .nav-item svg { flex: none; color: var(--muted); }
+
+.nav-item > span:not(.badge):not(.nav-dot) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .nav-item:hover { background: var(--chip); }
 .nav-item.is-active:hover { background: var(--nav-active); }
 .nav-item.is-active {
@@ -244,7 +265,7 @@ body {
   font-weight: 600;
 }
 
-.nav-support { margin-top: 12px; }
+.nav-support { margin-top: auto; }
 
 .nav-person { gap: 9px; }
 
@@ -289,20 +310,6 @@ body {
 
 .nav-signout { color: var(--muted); }
 
-.sidebar-foot {
-  margin-top: auto;
-  padding-top: 16px;
-}
-
-.user {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px;
-  border-radius: var(--r-inner);
-}
-
-.user:hover { background: var(--chip); }
 .user-meta { display: flex; flex-direction: column; min-width: 0; line-height: 1.35; }
 .user-meta strong { font-size: 12px; font-weight: 600; }
 .user-meta em { color: var(--muted); font-size: 10.5px; font-style: normal; }
@@ -338,6 +345,20 @@ body {
 .av-mint { background: linear-gradient(140deg, #79bfb2, #3c8579); }
 .av-blue { background: linear-gradient(140deg, #7fa8e8, #3f66ac); }
 
+/* stand-in when a record carries no name; graphite so it reads as "unknown"
+   rather than as another identity colour */
+.av-anon,
+.is-anon {
+  background: linear-gradient(140deg, #7b8290, #4c525d);
+  color: #fff;
+}
+
+.avatar-anon {
+  width: 76%;
+  height: 76%;
+  overflow: visible;
+}
+
 
 /* ---------- Panel ---------- */
 
@@ -358,7 +379,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 2px 8px 10px;
+  padding: 2px 8px 8px;
   flex: none;
 }
 
@@ -395,6 +416,26 @@ body {
 .crumb-add:hover { background: var(--chip); color: var(--ink); }
 
 .topbar-actions { display: flex; align-items: center; gap: 4px; }
+
+/* account block: label to the left of the avatar, text right-aligned */
+.topbar-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 6px;
+  padding: 4px 4px 4px 10px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  cursor: pointer;
+}
+
+.topbar-user:hover { background: var(--chip); }
+.topbar-user .user-meta { align-items: flex-end; }
+.topbar-user .avatar { width: 26px; height: 26px; font-size: 9.5px; }
 
 .ghost-btn,
 .filter-btn {
@@ -1099,31 +1140,31 @@ table.tasks th.col-num { text-align: right; }
 .kyc-badge {
   display: inline-block;
   padding: 4px 10px;
-  border-radius: var(--r-pill);
-  background: var(--ok-bg);
-  color: var(--ok-ink);
+  border-radius: var(--r-badge);
+  background: var(--st-ok-bg);
+  color: var(--st-ok-ink);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-.kyc-badge.is-pending { background: var(--warn-bg); color: var(--warn-ink); }
+.kyc-badge.is-pending { background: var(--st-warn-bg); color: var(--st-warn-ink); }
 
 /* ---------- Transactions ---------- */
 
 .status-pill {
   display: inline-block;
   padding: 4px 11px;
-  border-radius: var(--r-pill);
+  border-radius: var(--r-badge);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-.status-pill.is-new { background: var(--warn-bg); color: var(--warn-ink); }
-.status-pill.is-confirmed { background: var(--ok-bg); color: var(--ok-ink); }
+.status-pill.is-new { background: var(--st-warn-bg); color: var(--st-warn-ink); }
+.status-pill.is-confirmed { background: var(--st-ok-bg); color: var(--st-ok-ink); }
 
 .method-link { color: var(--accent-ink); font-weight: 500; }
 .method-plain { color: var(--ink-2); }
@@ -1410,8 +1451,17 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
   font-weight: 600;
 }
 
-.status-chip.is-ok { background: var(--ok-bg); color: var(--ok-ink); }
-.status-chip.is-muted { background: var(--chip); color: var(--muted); }
+.status-chip.is-ok,
+.status-chip.is-muted {
+  border-radius: var(--r-badge);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.status-chip.is-ok { background: var(--st-ok-bg); color: var(--st-ok-ink); }
+.status-chip.is-muted { background: var(--st-neutral-bg); color: var(--st-neutral-ink); }
 .status-chip.is-accent { background: var(--accent-soft); color: var(--accent-ink); }
 
 .two-fa { display: inline-flex; align-items: center; gap: 7px; }

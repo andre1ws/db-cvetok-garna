@@ -177,7 +177,7 @@ function renderRow(user) {
     <tr data-email="${email}" tabindex="0">
       <td>
         <div class="user-cell">
-          <span class="avatar avatar-user ${user.avatar || "av-violet"}">${initial}</span>
+          <span class="avatar avatar-user ${avatarTone(user.name, user.avatar || "av-violet")}">${avatarContent(user.name)}</span>
           <span class="user-cell-meta">
             <strong>${user.name}</strong>
             <em>${user.email}</em>
@@ -390,7 +390,7 @@ function renderProfile(user) {
 
     <div class="profile-hero">
       <div class="profile-identity">
-        <span class="avatar avatar-profile ${user.avatar || "av-violet"}">${initial}</span>
+        <span class="avatar avatar-profile ${avatarTone(user.name, user.avatar || "av-violet")}">${avatarContent(user.name)}</span>
         <div class="profile-ident">
           <div class="profile-name-row">
             <h1>${user.name}</h1>

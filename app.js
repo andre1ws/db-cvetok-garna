@@ -1,3 +1,20 @@
+/* Avatar fallback: the silhouette stands in only when a record has no name,
+   so initials keep telling people apart wherever there is one. Inlined rather
+   than loaded as a file so it can take its colours from the theme tokens. */
+const AVATAR_FALLBACK = `<svg class="avatar-anon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+  <path d="M10.25 12.38a5.75 5.75 0 0 1 11.5 0v.76a5.75 5.75 0 0 1-11.5 0v-.76Z" fill="currentColor"/>
+  <path d="M26.67 26.05A14.44 14.44 0 0 1 16 30.67 14.44 14.44 0 0 1 5.33 26.05C7.45 23.29 11.43 21.52 16 21.52s8.55 1.77 10.67 4.53Z" fill="currentColor"/>
+</svg>`;
+
+function avatarContent(name) {
+  const trimmed = String(name || "").trim();
+  return trimmed ? trimmed.charAt(0).toUpperCase() : AVATAR_FALLBACK;
+}
+
+function avatarTone(name, tone) {
+  return String(name || "").trim() ? tone : "is-anon";
+}
+
 document.querySelectorAll("[data-group-toggle]").forEach((btn) => {
   btn.addEventListener("click", () => btn.closest("[data-group]").classList.toggle("is-open"));
 });

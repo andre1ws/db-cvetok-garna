@@ -147,7 +147,7 @@ function renderNotifications() {
           <tr tabindex="0" data-notification="${item.id}">
             <td>
               <div class="user-cell">
-                <span class="avatar avatar-user ${item.avatar}">${item.sender.charAt(0).toUpperCase()}</span>
+                <span class="avatar avatar-user ${avatarTone(item.sender, item.avatar)}">${avatarContent(item.sender)}</span>
                 <span class="user-cell-meta">
                   <strong>${item.sender}</strong>
                   <em>${item.email}</em>
