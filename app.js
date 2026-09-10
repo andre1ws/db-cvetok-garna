@@ -6,6 +6,7 @@ const CRUMBS = {
   users: ["Administrator", "Users"],
   promotions: ["Administrator", "Promotions"],
   notifications: ["Administrator", "Notifications"],
+  labels: ["Administrator", "Labels"],
   transactions: ["Payments", "Transactions"],
 };
 

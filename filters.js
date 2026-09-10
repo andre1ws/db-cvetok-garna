@@ -348,6 +348,12 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
     matches(item) {
       return state.applied.every((f) => {
         const value = getValue(item, f.fieldKey);
+        // multi-value columns (a row carrying several tags) match on contains
+        if (Array.isArray(value)) {
+          if (f.condition === "empty") return value.length === 0;
+          const has = value.includes(f.value);
+          return f.condition === "isnot" ? !has : has;
+        }
         if (f.condition === "empty") return !value;
         if (f.condition === "isnot") return value !== f.value;
         return value === f.value;

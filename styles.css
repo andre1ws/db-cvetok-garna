@@ -984,7 +984,7 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 .filter-pop button[disabled] svg { color: var(--muted-2); }
 
 .data-table-wrap {
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
   border: 1px solid var(--line-soft);
   border-radius: var(--r-card);
@@ -1443,6 +1443,77 @@ table.promotions-table { min-width: 840px; }
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* ---------- Row actions ---------- */
+
+.row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity .14s ease;
+}
+
+tr:hover .row-actions,
+tr:focus-within .row-actions { opacity: 1; }
+
+.row-action {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.row-action:hover { background: var(--chip); color: var(--ink); }
+.row-action:focus-visible { opacity: 1; outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* ---------- Labels ---------- */
+
+table.labels-table { min-width: 900px; }
+
+.label-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+/* the reference separates the name column from the CSPs with a hairline */
+table.labels-table td:first-child,
+table.labels-table th:first-child { border-right: 1px solid var(--line-soft); }
+.label-domain { color: var(--ink-2); }
+
+/* a row can carry several CSPs plus an overflow count */
+.csp-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.csp-more {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.app-check {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  color: var(--ok-ink);
 }
 
 /* ---------- Notifications ---------- */
