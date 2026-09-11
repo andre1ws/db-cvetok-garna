@@ -1864,12 +1864,13 @@ html[data-theme="dark"] .form-field select {
 .form-field input::placeholder,
 .form-field textarea::placeholder { color: var(--muted); }
 
+/* Focus is the accent border and nothing else -- no halo ring around it. */
 .field-control:focus,
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  box-shadow: none;
 }
 
 .field-with-action {
