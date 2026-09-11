@@ -92,7 +92,7 @@ html[data-theme="dark"] {
 
   --accent: #8452ff;
   --accent-deep: #9d75ff;
-  --accent-ink: #9d75ff;
+  --accent-ink: #a47fff;
   --accent-soft: #23262c;   /* tint stays neutral */
   --accent-glow: rgba(132, 82, 255, .32);
   --on-accent: #ffffff;
@@ -231,14 +231,16 @@ body {
 .nav-item.is-active:hover { background: var(--nav-active); }
 .nav-item.is-active {
   background: var(--nav-active);
-  color: var(--ink);
+  color: var(--accent-ink);
   font-weight: 700;
 }
-.nav-item.is-active svg { color: var(--ink); }
+
+.nav-item.is-active svg { color: var(--accent-ink); }
+
 .nav-item.is-muted { opacity: .45; }
 
 .nav-sub { padding-left: 14px; color: var(--muted); font-size: 12px; }
-.nav-sub.is-active { background: var(--nav-active); color: var(--ink); font-weight: 700; }
+.nav-sub.is-active { background: var(--nav-active); color: var(--accent-ink); font-weight: 700; }
 
 .nav-chevron {
   margin-left: auto;
@@ -252,7 +254,6 @@ body {
   margin-left: auto;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .nav-item .nav-dot + .nav-chevron { margin-left: 8px; }
@@ -811,6 +812,28 @@ table.tasks tr.is-checked { background: color-mix(in srgb, var(--accent-soft) 60
 .pop-field .condition-tabs { width: 100%; justify-content: space-between; }
 .pop-field .condition-tab { flex: 1; text-align: center; padding: 7px 6px; }
 
+.pop-add {
+  align-self: flex-start;
+  height: var(--control-h);
+  padding: 0 16px;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-pill);
+  background: none;
+  color: var(--accent-ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pop-add:hover:not([disabled]) { background: var(--accent-soft); }
+
+.pop-add[disabled] {
+  border-color: var(--line);
+  color: var(--muted-2);
+  cursor: not-allowed;
+}
+
 .pop-empty {
   margin: 0;
   padding: 14px 12px;
@@ -1258,12 +1281,16 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
 .profile-action {
   border: 1px solid var(--line);
   color: var(--ink-2);
+  transition: border-color .14s ease, color .14s ease;
 }
 
 .profile-action:hover {
-  border-color: var(--line);
+  border-color: var(--accent);
   background: var(--surface-2);
+  color: var(--accent-ink);
 }
+
+.profile-action:hover svg { color: var(--accent-ink); }
 
 .profile-hero {
   display: grid;
@@ -1376,7 +1403,7 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
   padding: 14px 16px;
   border: 1px solid var(--line);
   border-radius: var(--r-inner);
-  background: var(--surface-2);
+  background: var(--surface);
 }
 
 .profile-block-head {
@@ -1384,8 +1411,7 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
   align-items: center;
   gap: 10px;
   grid-column: 1 / -1;
-  padding: 0 0 4px;
-  border-bottom: 1px solid var(--line);
+  padding: 0;
 }
 
 .profile-block-head .danger-btn,

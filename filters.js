@@ -150,6 +150,14 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
       }
 
       ${
+        field
+          ? `<button type="button" class="pop-add" data-role="add"${draftReady() ? "" : " disabled"}>
+        Add filter
+      </button>`
+          : ""
+      }
+
+      ${
         state.staged.length
           ? `<div class="pop-list">
         <div class="pop-list-head">
@@ -165,7 +173,7 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
           )
           .join("")}
       </div>`
-          : '<p class="pop-empty">No filters yet. Pick a field to add one.</p>'
+          : '<p class="pop-empty">No filters yet. Build one above, then press Add filter.</p>'
       }
 
       <div class="pop-preset">
@@ -206,7 +214,11 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
       .join("");
   }
 
+  const draftReady = () =>
+    Boolean(draft.fieldKey) && (draft.condition === "empty" || Boolean(draft.value));
+
   function addDraftFilter() {
+    if (!draftReady()) return;
     state.staged.push({ ...draft });
     draft = { fieldKey: "", condition: "is", value: "" };
     editingPresetId = null;
@@ -230,8 +242,7 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
       renderPanel();
     } else if (role === "value") {
       draft.value = e.target.value;
-      if (draft.value) addDraftFilter();
-      else renderPanel();
+      renderPanel();
     }
   });
 
@@ -241,11 +252,8 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
     const condBtn = e.target.closest("[data-condition]");
     if (condBtn) {
       draft.condition = condBtn.dataset.condition;
-      if (draft.condition === "empty") addDraftFilter();
-      else {
-        draft.value = "";
-        renderPanel();
-      }
+      draft.value = "";
+      renderPanel();
       return;
     }
 
@@ -259,6 +267,8 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
     }
 
     const role = e.target.closest("[data-role]")?.dataset.role;
+
+    if (role === "add") return addDraftFilter();
 
     if (role === "close") return close();
 
