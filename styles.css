@@ -15,6 +15,7 @@
   --ink: #111318;
   --ink-2: #3e424a;
   --muted: #646870;        /* AA on every light surface incl. --nav-active */
+  --nav-muted: #70757e;    /* a step lighter than --muted, sidebar only */
   --muted-2: #979ba4;      /* decorative only: chevrons, separators, scrollbar */
 
   /* lime accent: fill vs. ink-on-light are different colors */
@@ -88,6 +89,7 @@ html[data-theme="dark"] {
   --ink: #f3f4f6;
   --ink-2: #cfd2d8;
   --muted: #9aa0a9;
+  --nav-muted: #8b929c;    /* same step down in weight, which is darker here */
   --muted-2: #757a83;
 
   --accent: #8452ff;
@@ -220,7 +222,7 @@ body {
   transition: background .15s ease, color .15s ease;
 }
 
-.nav-item svg { flex: none; color: var(--muted); }
+.nav-item svg { flex: none; color: var(--nav-muted); }
 
 .nav-item > span:not(.badge):not(.nav-dot) {
   overflow: hidden;
@@ -239,7 +241,7 @@ body {
 
 .nav-item.is-muted { opacity: .45; }
 
-.nav-sub { padding-left: 14px; color: var(--muted); font-size: 12px; }
+.nav-sub { padding-left: 14px; color: var(--nav-muted); font-size: 12px; }
 .nav-sub.is-active { background: var(--nav-active); color: var(--accent-ink); font-weight: 700; }
 
 .nav-chevron {
