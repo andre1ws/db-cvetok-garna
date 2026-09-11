@@ -15,7 +15,9 @@
   --ink: #111318;
   --ink-2: #3e424a;
   --muted: #646870;        /* AA on every light surface incl. --nav-active */
-  --nav-muted: #70757e;    /* a step lighter than --muted, sidebar only */
+  --nav-muted: #82878f;    /* sidebar labels only -- 3.6 on white, below AA
+                              on purpose: nav text is short, repeated and
+                              always next to its icon */
   --muted-2: #979ba4;      /* decorative only: chevrons, separators, scrollbar */
 
   /* lime accent: fill vs. ink-on-light are different colors */
@@ -87,7 +89,7 @@ html[data-theme="dark"] {
   --ink: #f3f4f6;
   --ink-2: #cfd2d8;
   --muted: #9aa0a9;
-  --nav-muted: #8b929c;    /* same step down in weight, which is darker here */
+  --nav-muted: #7b818b;    /* same step down in weight, which is darker here */
   --muted-2: #757a83;
 
   --accent: #8452ff;
