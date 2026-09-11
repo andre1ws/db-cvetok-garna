@@ -1682,11 +1682,20 @@ table.notifications-table { min-width: 900px; }
   color: var(--ok-ink);
 }
 
+/* The cell used to be the flex container itself, capped at 420px, so the
+   text ran out of room well before the column did. The cell is a plain cell
+   again: max-width 0 plus width 100% is what makes an auto-layout table hand
+   this column the slack and clip the lines at its real edge. */
 .message-cell {
+  width: 100%;
+  max-width: 0;
+}
+
+.message-cell-inner {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  max-width: 420px;
+  min-width: 0;
 }
 
 .message-cell strong {

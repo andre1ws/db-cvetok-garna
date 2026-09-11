@@ -157,8 +157,10 @@ function renderNotifications() {
             <td><span class="tag-role">${item.segment}</span></td>
             <td>${item.push ? `<span class="push-check">${notifSvg('<path d="m5 12.6 4.4 4.4L19 7"/>', 14, 2.2)}</span>` : ""}</td>
             <td class="message-cell">
-              <strong>${item.title}</strong>
-              <span>${item.text}</span>
+              <div class="message-cell-inner">
+                <strong>${item.title}</strong>
+                <span>${item.text}</span>
+              </div>
             </td>
             <td class="col-num task-date">${formatNotificationDate(item.sent)}</td>
           </tr>`).join("")}
