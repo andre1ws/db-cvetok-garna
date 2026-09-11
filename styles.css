@@ -26,7 +26,6 @@
   --accent-deep: #6628ff;
   --accent-ink: #7137ff;    /* accent used as text on light surfaces */
   --accent-soft: #eef0f4;   /* tint stays neutral */
-  --accent-glow: rgba(132, 82, 255, .38);
   --on-accent: #ffffff;
 
   --dark-surface: #0f1114;
@@ -34,7 +33,7 @@
   --on-dark: #ffffff;
 
   --chip: #f1f2f4;         /* hover on white only -- same value as the canvas */
-  --nav-active: #e8eaee;   /* grey substrate for the active nav item */
+  --nav-active: #eceef2;   /* grey substrate for the active nav item */
   --check-border: #d3d7de;
 
   /* semantics keep their own hue, desaturated; the ink carries the meaning */
@@ -69,7 +68,6 @@
   --control-h: 38px;   /* every bordered toolbar control shares this height */
 
   /* only the accent glow survives: surfaces separate by tone and border, not shadow */
-  --shadow-accent: 0 8px 24px -6px var(--accent-glow);
 }
 
 html[data-theme="dark"] {
@@ -96,14 +94,13 @@ html[data-theme="dark"] {
   --accent-deep: #9d75ff;
   --accent-ink: #a47fff;
   --accent-soft: #23262c;   /* tint stays neutral */
-  --accent-glow: rgba(132, 82, 255, .32);
   --on-accent: #ffffff;
 
   --dark-surface: #0a0b0c;
   --dark-surface-2: #17191d;
 
   --chip: #1f2226;
-  --nav-active: #292d33;
+  --nav-active: #24272d;   /* softened toward the sidebar, as in light */
   --check-border: #3d424a;
 
   /* semantic tints desaturated: the ink carries the hue, the fill stays dark */
@@ -576,7 +573,6 @@ body {
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: var(--shadow-accent);
 }
 
 .primary-btn:hover { background: var(--accent-deep); }
