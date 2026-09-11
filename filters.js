@@ -1,13 +1,13 @@
 /* Reusable filter builder: one instance per section.
 
    Two lists, deliberately separate:
-     staged  -- what the popover is editing
+     staged  -- what the block is editing
      applied -- what the table is actually filtered by
    Confirm copies staged into applied. Keeping them apart is what stops an
    unconfirmed filter from leaking into the table when something else
    (typing in search, sorting) triggers a re-render.
 
-   Ids are avoided on purpose -- several popovers live on the same page, so
+   Ids are avoided on purpose -- several blocks live on the same page, so
    every control is addressed through data-role scoped to its own panel. */
 
 const filterUnique = (list) => [...new Set(list.filter(Boolean))].sort();
@@ -43,16 +43,11 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
     }
   }
 
-  /* ---------- popover ---------- */
+  /* ---------- the block ---------- */
 
-  /* Flip to the trigger's right edge when opening left-aligned would run
-     off screen -- the toolbar wraps below 1024px and pushes the trigger right. */
-  function position() {
-    panel.classList.remove("is-right");
-    if (panel.getBoundingClientRect().right > window.innerWidth - 12) {
-      panel.classList.add("is-right");
-    }
-  }
+  /* This is a band in the page flow, not an overlay: opening it pushes the
+     table down and it stays put while the user works elsewhere. So there is
+     no outside-click close -- only the toggle, the x and Confirm shut it. */
 
   function open() {
     panel.hidden = false;
@@ -60,28 +55,16 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
     state.staged = state.applied.map((f) => ({ ...f }));
     draft = { fieldKey: "", condition: "is", value: "" };
     renderPanel();
-    position();
     panel.querySelector("[data-role='field']")?.focus();
   }
-
-  window.addEventListener("resize", () => {
-    if (!panel.hidden) position();
-  });
 
   function close() {
     panel.hidden = true;
     toggle.setAttribute("aria-expanded", "false");
   }
 
-  toggle.addEventListener("click", (e) => {
-    e.stopPropagation();
+  toggle.addEventListener("click", () => {
     panel.hidden ? open() : close();
-  });
-
-  document.addEventListener("click", (e) => {
-    if (panel.hidden) return;
-    if (panel.contains(e.target) || toggle.contains(e.target)) return;
-    close();
   });
 
   document.addEventListener("keydown", (e) => {
@@ -102,60 +85,52 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
     panel.innerHTML = `
     <div class="pop-head">
       <span class="pop-title">Filter</span>
-      <button type="button" class="pop-close" data-role="close" aria-label="Close">&times;</button>
+      <button type="button" class="pop-close" data-role="close" aria-label="Close filter">&times;</button>
     </div>
 
     <div class="pop-body">
-      <label class="pop-field">
-        <span>Field</span>
-        <select class="field-control" data-role="field">
-          <option value="">Choose a field</option>
-          ${fields
-            .map((f) => `<option value="${f.key}"${f.key === draft.fieldKey ? " selected" : ""}>${f.label}</option>`)
-            .join("")}
-        </select>
-      </label>
+      <div class="pop-builder">
+        <label class="pop-field">
+          <span>Field</span>
+          <select class="field-control" data-role="field">
+            <option value="">Choose a field</option>
+            ${fields
+              .map((f) => `<option value="${f.key}"${f.key === draft.fieldKey ? " selected" : ""}>${f.label}</option>`)
+              .join("")}
+          </select>
+        </label>
 
-      ${
-        field
-          ? `<div class="pop-field">
-        <span>Condition</span>
-        <div class="condition-tabs" role="tablist">
-          ${["is", "isnot", "empty"]
-            .map(
-              (c) =>
-                `<button type="button" class="condition-tab${draft.condition === c ? " is-active" : ""}" data-condition="${c}">${
-                  c === "empty" ? "Empty" : c === "is" ? "It is" : "It is not"
-                }</button>`
-            )
-            .join("")}
+        <div class="pop-field">
+          <span>Condition</span>
+          <div class="condition-tabs" role="tablist">
+            ${["is", "isnot", "empty"]
+              .map(
+                (c) =>
+                  `<button type="button" class="condition-tab${draft.condition === c ? " is-active" : ""}" data-condition="${c}"${
+                    field ? "" : " disabled"
+                  }>${c === "empty" ? "Empty" : c === "is" ? "It is" : "It is not"}</button>`
+              )
+              .join("")}
+          </div>
         </div>
-      </div>`
-          : ""
-      }
 
-      ${
-        field && needsValue
-          ? `<label class="pop-field">
-        <span>Value</span>
-        <select class="field-control" data-role="value">
-          <option value="">Choose a value</option>
-          ${field
-            .options()
-            .map((o) => `<option value="${filterEscape(o)}"${o === draft.value ? " selected" : ""}>${filterEscape(o)}</option>`)
-            .join("")}
-        </select>
-      </label>`
-          : ""
-      }
+        <label class="pop-field">
+          <span>Value</span>
+          <select class="field-control" data-role="value"${field && needsValue ? "" : " disabled"}>
+            <option value="">${needsValue ? "Choose a value" : "Not needed"}</option>
+            ${
+              field && needsValue
+                ? field
+                    .options()
+                    .map((o) => `<option value="${filterEscape(o)}"${o === draft.value ? " selected" : ""}>${filterEscape(o)}</option>`)
+                    .join("")
+                : ""
+            }
+          </select>
+        </label>
 
-      ${
-        field
-          ? `<button type="button" class="pop-add" data-role="add"${draftReady() ? "" : " disabled"}>
-        Add filter
-      </button>`
-          : ""
-      }
+        <button type="button" class="pop-add" data-role="add"${draftReady() ? "" : " disabled"}>Add filter</button>
+      </div>
 
       ${
         state.staged.length
@@ -164,26 +139,27 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
           <span>Added${dirty ? ' <em class="pop-dirty">not applied</em>' : ""}</span>
           <button type="button" class="filter-clear" data-role="clear">Clear all</button>
         </div>
-        ${state.staged
-          .map(
-            (f, i) => `<span class="filter-chip">
-          ${describe(f)}
-          <button type="button" class="filter-chip-remove" data-remove-filter="${i}" aria-label="Remove filter">&times;</button>
-        </span>`
-          )
-          .join("")}
+        <div class="pop-chips">
+          ${state.staged
+            .map(
+              (f, i) => `<span class="filter-chip">
+            ${describe(f)}
+            <button type="button" class="filter-chip-remove" data-remove-filter="${i}" aria-label="Remove filter">&times;</button>
+          </span>`
+            )
+            .join("")}
+        </div>
       </div>`
           : '<p class="pop-empty">No filters yet. Build one above, then press Add filter.</p>'
       }
-
-      <div class="pop-preset">
-        <input type="text" class="field-control" data-role="preset-name" placeholder="Save as preset" />
-        <button type="button" class="filter-btn" data-role="create-preset"${state.staged.length ? "" : " disabled"}>Save</button>
-      </div>
-      ${editingPresetId ? '<button type="button" class="danger-btn pop-delete" data-role="delete-preset">Delete this preset</button>' : ""}
     </div>
 
     <div class="pop-foot">
+      <div class="pop-preset">
+        <input type="text" class="field-control" data-role="preset-name" placeholder="Save as preset" />
+        <button type="button" class="filter-btn" data-role="create-preset"${state.staged.length ? "" : " disabled"}>Save</button>
+        ${editingPresetId ? '<button type="button" class="danger-btn pop-delete" data-role="delete-preset">Delete preset</button>' : ""}
+      </div>
       <button type="button" class="primary-btn pop-confirm" data-role="confirm">Confirm</button>
     </div>`;
   }
@@ -219,7 +195,10 @@ function createFilter({ toggle, panel, presets, active, fields, getValue, onAppl
 
   function addDraftFilter() {
     if (!draftReady()) return;
-    state.staged.push({ ...draft });
+    /* An identical filter is already in the list -- adding it again would
+       only put a second chip there that narrows nothing. Clear the form
+       anyway: the state the user asked for is the state they get. */
+    if (!state.staged.some((f) => sameFilter(f, draft))) state.staged.push({ ...draft });
     draft = { fieldKey: "", condition: "is", value: "" };
     editingPresetId = null;
     renderPanel();

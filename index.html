@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=61" />
+<link rel="stylesheet" href="styles.css?v=62" />
 </head>
 <body>
 <div class="app">
@@ -188,10 +188,9 @@
               <input id="userSearch" type="search" placeholder="Username, channel or email" />
             </label>
             <div class="filter-anchor">
-              <button class="icon-btn is-bordered" id="userFilterToggle" title="Filter" aria-label="Filter" aria-expanded="false" aria-haspopup="dialog">
+              <button class="icon-btn is-bordered" id="userFilterToggle" title="Filter" aria-label="Filter" aria-expanded="false" aria-controls="userFilterPanel">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
               </button>
-              <div class="filter-pop" id="userFilterPanel" role="dialog" aria-label="Filter" hidden></div>
             </div>
             <div class="active-filters" id="userActiveFilters"></div>
             <div class="preset-chips" id="userFilterPresets"></div>
@@ -212,6 +211,8 @@
           </div>
         </div>
 
+        <div class="filter-block" id="userFilterPanel" role="region" aria-label="Filter" hidden></div>
+
         <div class="data-table-wrap" id="usersTable"></div>
         <p class="empty-note" id="usersEmpty" hidden>No users match your search.</p>
       </section>
@@ -224,10 +225,9 @@
               <input id="promotionSearch" type="search" placeholder="Banner name" />
             </label>
             <div class="filter-anchor">
-              <button class="icon-btn is-bordered" id="promotionFilterToggle" title="Filter" aria-label="Filter promotions" aria-expanded="false" aria-haspopup="dialog">
+              <button class="icon-btn is-bordered" id="promotionFilterToggle" title="Filter" aria-label="Filter promotions" aria-expanded="false" aria-controls="promotionFilterPanel">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
               </button>
-              <div class="filter-pop" id="promotionFilterPanel" role="dialog" aria-label="Filter" hidden></div>
             </div>
             <div class="active-filters" id="promotionActiveFilters"></div>
             <div class="preset-chips" id="promotionFilterPresets"></div>
@@ -237,6 +237,8 @@
             <span>Archive</span>
           </button>
         </div>
+
+        <div class="filter-block" id="promotionFilterPanel" role="region" aria-label="Filter" hidden></div>
 
         <div class="data-table-wrap" id="promotionsTable"></div>
         <p class="empty-note" id="promotionsEmpty" hidden>No promotions match your search.</p>
@@ -250,10 +252,9 @@
               <input id="labelSearch" type="search" placeholder="Label name" />
             </label>
             <div class="filter-anchor">
-              <button class="icon-btn is-bordered" id="labelFilterToggle" title="Filter" aria-label="Filter labels" aria-expanded="false" aria-haspopup="dialog">
+              <button class="icon-btn is-bordered" id="labelFilterToggle" title="Filter" aria-label="Filter labels" aria-expanded="false" aria-controls="labelFilterPanel">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
               </button>
-              <div class="filter-pop" id="labelFilterPanel" role="dialog" aria-label="Filter" hidden></div>
             </div>
             <div class="active-filters" id="labelActiveFilters"></div>
             <div class="preset-chips" id="labelFilterPresets"></div>
@@ -263,6 +264,8 @@
             <span>Archive</span>
           </button>
         </div>
+
+        <div class="filter-block" id="labelFilterPanel" role="region" aria-label="Filter" hidden></div>
 
         <div class="data-table-wrap" id="labelsTable"></div>
         <p class="empty-note" id="labelsEmpty" hidden>No labels match your search.</p>
@@ -276,10 +279,9 @@
               <input id="partnerSearch" type="search" placeholder="Partner name or email" />
             </label>
             <div class="filter-anchor">
-              <button class="icon-btn is-bordered" id="partnerFilterToggle" title="Filter" aria-label="Filter partners" aria-expanded="false" aria-haspopup="dialog">
+              <button class="icon-btn is-bordered" id="partnerFilterToggle" title="Filter" aria-label="Filter partners" aria-expanded="false" aria-controls="partnerFilterPanel">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
               </button>
-              <div class="filter-pop" id="partnerFilterPanel" role="dialog" aria-label="Filter" hidden></div>
             </div>
             <div class="active-filters" id="partnerActiveFilters"></div>
             <div class="preset-chips" id="partnerFilterPresets"></div>
@@ -302,6 +304,8 @@
           </div>
         </div>
 
+        <div class="filter-block" id="partnerFilterPanel" role="region" aria-label="Filter" hidden></div>
+
         <div class="data-table-wrap" id="partnersTable"></div>
         <p class="empty-note" id="partnersEmpty" hidden>No partners match your search.</p>
       </section>
@@ -314,10 +318,9 @@
               <input id="notificationSearch" type="search" placeholder="Username or email" />
             </label>
             <div class="filter-anchor">
-              <button class="icon-btn is-bordered" id="notificationFilterToggle" title="Filter" aria-label="Filter notifications" aria-expanded="false" aria-haspopup="dialog">
+              <button class="icon-btn is-bordered" id="notificationFilterToggle" title="Filter" aria-label="Filter notifications" aria-expanded="false" aria-controls="notificationFilterPanel">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
               </button>
-              <div class="filter-pop" id="notificationFilterPanel" role="dialog" aria-label="Filter" hidden></div>
             </div>
             <div class="active-filters" id="notificationActiveFilters"></div>
             <div class="preset-chips" id="notificationFilterPresets"></div>
@@ -327,6 +330,8 @@
             <span>Archive</span>
           </button>
         </div>
+
+        <div class="filter-block" id="notificationFilterPanel" role="region" aria-label="Filter" hidden></div>
 
         <div class="data-table-wrap" id="notificationsTable"></div>
         <p class="empty-note" id="notificationsEmpty" hidden>No notifications match your search.</p>
@@ -340,10 +345,9 @@
               <input id="transactionSearch" type="search" placeholder="Username / Email / Account Number" />
             </label>
             <div class="filter-anchor">
-              <button class="icon-btn is-bordered" id="transactionFilterToggle" title="Filter" aria-label="Filter transactions" aria-expanded="false" aria-haspopup="dialog">
+              <button class="icon-btn is-bordered" id="transactionFilterToggle" title="Filter" aria-label="Filter transactions" aria-expanded="false" aria-controls="transactionFilterPanel">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M7 12h10M10 17.5h4"/></svg>
               </button>
-              <div class="filter-pop" id="transactionFilterPanel" role="dialog" aria-label="Filter" hidden></div>
             </div>
             <div class="active-filters" id="transactionActiveFilters"></div>
             <div class="preset-chips" id="transactionFilterPresets"></div>
@@ -370,6 +374,8 @@
             </button>
           </div>
         </div>
+
+        <div class="filter-block" id="transactionFilterPanel" role="region" aria-label="Filter" hidden></div>
 
         <div class="data-table-wrap" id="transactionsTable"></div>
         <p class="empty-note" id="transactionsEmpty" hidden>No transactions match your search.</p>
@@ -663,13 +669,13 @@
   </aside>
 </div>
 
-<script src="filters.js?v=61"></script>
-<script src="app.js?v=61"></script>
-<script src="users.js?v=61"></script>
-<script src="promotions.js?v=61"></script>
-<script src="labels.js?v=61"></script>
-<script src="partners.js?v=61"></script>
-<script src="notifications.js?v=61"></script>
-<script src="transactions.js?v=61"></script>
+<script src="filters.js?v=62"></script>
+<script src="app.js?v=62"></script>
+<script src="users.js?v=62"></script>
+<script src="promotions.js?v=62"></script>
+<script src="labels.js?v=62"></script>
+<script src="partners.js?v=62"></script>
+<script src="notifications.js?v=62"></script>
+<script src="transactions.js?v=62"></script>
 </body>
 </html>
