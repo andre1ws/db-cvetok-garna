@@ -191,7 +191,7 @@ function renderRow(user) {
       <td class="col-num">
         <span class="last-action">
           ${formatDate(user.lastAction)}
-          ${svg(DEVICE_ICONS[user.device], 14, 1.6)}
+          ${svg(DEVICE_ICONS[user.device], 16, 1.6)}
         </span>
       </td>
       <td class="col-num task-date">${formatDate(user.registered)}</td>

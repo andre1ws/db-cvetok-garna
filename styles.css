@@ -1237,7 +1237,7 @@ table.transactions-table tfoot td:last-child { padding-right: 14px; }
   white-space: nowrap;
 }
 
-.last-action svg { color: var(--muted-2); }
+.last-action svg { color: var(--muted); }
 
 /* ---------- User profile card ---------- */
 
@@ -1579,18 +1579,13 @@ tr:focus-within .row-actions { opacity: 1; }
 
 table.partners-table { min-width: 1240px; }
 
-/* the name column is the row's anchor: a hairline separates it from the data,
-   and the link / archive affordances sit at its right edge */
+/* the link / archive affordances sit at the right edge of the name column */
 .partner-cell {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
-
-table.partners-table td:first-child,
-table.partners-table th:first-child,
-table.partners-table tfoot td:first-child { border-right: 1px solid var(--line-soft); }
 
 .partner-cell-side {
   display: inline-flex;
@@ -1604,7 +1599,7 @@ table.partners-table tfoot td:first-child { border-right: 1px solid var(--line-s
   place-items: center;
   width: 26px;
   height: 26px;
-  color: var(--muted-2);
+  color: var(--muted);
 }
 
 /* two-line headings need the cell to align its content to the bottom */
@@ -1640,9 +1635,6 @@ table.labels-table { min-width: 900px; }
   font-weight: 600;
 }
 
-/* the reference separates the name column from the CSPs with a hairline */
-table.labels-table td:first-child,
-table.labels-table th:first-child { border-right: 1px solid var(--line-soft); }
 .label-domain { color: var(--ink-2); }
 
 /* a row can carry several CSPs plus an overflow count */

@@ -50,7 +50,7 @@ const count = (v) => v.toLocaleString("en-US");
 
 const LINK_ICONS = {
   chain: '<path d="M9.5 14.5 14.5 9.5"/><path d="M12.7 7.6l1.4-1.4a3.2 3.2 0 0 1 4.5 4.5l-1.4 1.4"/><path d="M11.3 16.4l-1.4 1.4a3.2 3.2 0 0 1-4.5-4.5l1.4-1.4"/>',
-  sync: '<path d="M4.5 12h5"/><path d="M14.5 12h5"/><path d="m7.5 9.5-3 2.5 3 2.5"/><path d="m16.5 9.5 3 2.5-3 2.5"/>',
+  sync: '<path d="M4.8 9.4h14.4"/><path d="m16.2 6.4 3 3-3 3"/><path d="M19.2 14.6H4.8"/><path d="m7.8 11.6-3 3 3 3"/>',
 };
 
 const partnerFilter = createFilter({
@@ -125,7 +125,7 @@ function renderPartners() {
                 </span>
               </span>
               <span class="partner-cell-side">
-                ${p.link ? `<span class="partner-link" title="${p.link === "chain" ? "Linked" : "Synced"}">${partnerSvg(LINK_ICONS[p.link], 16, 1.7)}</span>` : ""}
+                ${p.link ? `<span class="partner-link" title="${p.link === "chain" ? "Linked" : "Synced"}">${partnerSvg(LINK_ICONS[p.link], 17, 1.7)}</span>` : ""}
                 <span class="row-actions">
                   <button type="button" class="row-action" data-action="archive" title="Archive" aria-label="Archive ${partnerEscape(p.name)}">${partnerSvg(
                     '<rect x="4.5" y="8.4" width="15" height="11.1" rx="2"/><path d="M4 4.5h16v3.9H4z"/><path d="M10 12.2h4"/>',
